@@ -1,2 +1,0 @@
-class ReservedsController < ApplicationController
-end
