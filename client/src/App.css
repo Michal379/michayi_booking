@@ -5,7 +5,7 @@
   justify-content: center;
 
 }
-/* 
+
 .navbarContainer{
   width: 100%;
   max-width: 1024px;
@@ -17,5 +17,17 @@
 
 .logo{
   font-weight: 1000;
+}
+
+/* .navButton{
+  margin-left: 20px;
+  border: none;
+  padding: 6px 11px;
+  cursor: pointer;
+  color: rgb(218, 35, 22);
 } */
+
+  
+  
+  
 
