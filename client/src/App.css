@@ -26,6 +26,88 @@
   cursor: pointer;
   color: rgb(218, 35, 22);
 }
+/* 
+.header{
+  background-color: rgb(232, 136, 67);
+  color: azure;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.headerContainer{
+  width: 100%;
+  max-width: 1000px;
+  margin:20px 0px 100px 0px ;
+}
+
+.headerList{
+  display: flex;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.headerItem{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerItem.active{
+  border: 1px solid rgb(225, 213, 213);
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.description{
+  margin: 20px 0px;
+}
+
+.headerBtn{
+  background-color: rgb(126, 13, 13);
+  color: floralwhite;
+  font-weight: 400;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.headerSearch{
+  height: 30px;
+  background-color: gray;
+  border: 3px solid yellow;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0px;
+  border-radius: 5px;
+  position: absolute;
+  bottom: -25px;
+  width: 100%;
+  max-width: 1024px;
+}
+
+.headerIcon{
+  color: lightcoral;
+}
+
+.headerSearchItem{
+  display: flex;
+  align-items: center;
+  gap:1 0px;
+}
+
+.headerSearchInput{
+  border: none;
+  outline: none;
+}
+
+.headerSearchText{
+  color: aqua;
+  cursor: pointer;
+}
+ */
+
 
   
   
