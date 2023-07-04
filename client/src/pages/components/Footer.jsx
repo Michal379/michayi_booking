@@ -20,8 +20,8 @@ const Footer = () => {
             <li className="fListItem">Linkedin</li>
         </ul>
         <ul className="fList">
-            <li className="fListItem">Destinations</li>
-            <li className="fListItem">Countries</li>
+            <li className="fListItem">Email</li>
+            <li className="fListItem">Contact</li>
             <li className="fListItem">Counties</li>
             <li className="fListItem">Regions</li>
             <li className="fListItem">Hotels</li>

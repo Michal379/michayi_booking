@@ -9,6 +9,8 @@ const Navbar = () => {
         <div className='navItems'>
           <button className='navButton'>Signin</button>
           <button className='navButton'>Login</button>
+          <button className='navButton'>About us</button>
+
         </div>
       </div>
     

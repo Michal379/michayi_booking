@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import Navbar from '../components/Navbar';
 import Header from './Header';
-import Hotel from './Hotel';
+// import Hotel from './Hotel';
 // import List from '../List';
 import Footer from './Footer';
+import Featured from './Featured';
 
 const Home = () => {
   return (
@@ -11,9 +12,11 @@ const Home = () => {
     <>
     <Navbar />
     <Header />
-    <Hotel />
     {/* <List /> */}
-    <div className="homeContainer"></div>
+    <div className="homeContainer">
+      <Featured />
+      {/* <Hotel /> */}
+    </div>
     <Footer />
     </>
   )

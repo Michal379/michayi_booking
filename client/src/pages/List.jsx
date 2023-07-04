@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
+import Hotel from './components/Hotel'
 import Header from './components/Header'
 import Footer from './components/Footer'
 
@@ -19,6 +20,7 @@ const List = () => {
     <div>
       <Navbar /> 
       <Header type="list"/>
+      <Hotel />
       <Footer />
     </div>
   )
