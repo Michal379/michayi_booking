@@ -50,7 +50,7 @@ const Header = ({ type }) => {
               <button className='headerBtn'>Signin</button>
             </>
           )}
-        </div>
+        </div>              
         <div className='headerSearch'>
           <div className='headerSearchItem'>
             <FontAwesomeIcon icon={faHotel} className='headerIcon' />
@@ -103,7 +103,7 @@ const Header = ({ type }) => {
           <div className='headerSearchItem'>
             <button className='headerBtn'>Search</button>
           </div>
-        </div>
+        </div>             
       </div>
     </div>
   );
