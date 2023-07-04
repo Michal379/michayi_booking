@@ -38,17 +38,22 @@
 .headerContainer{
   width: 100%;
   max-width: 1000px;
-  margin:20px 0px 100px 0px ;
+  margin:20px 0px 50px 0px ;
 }
 
-.headerList{
+.headerContainer.listMode{
+  margin:20px 0px 0px 0px ;
+
+}
+
+/* .headerList{
   display: flex;
   gap: 40px;
   margin-bottom: 50px;
-}
+} */
 
 .headerItem{
-  display: flex;
+  display: block;
   align-items: center;
   gap: 10px;
 }
@@ -110,6 +115,39 @@
 .date{
   position: absolute;
   top: 50px;
+}
+.options{
+  position: absolute;
+  top: 50px;
+  background-color: antiquewhite;
+  color: brown;
+  border-radius: 5px;
+  box-shadow: 0lvi;
+}
+
+.optionItem{
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.optionCounter{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.optionCounterButton{ 
+  width: 35px;
+  height: 35px;
+  border: 1px solid red;
+  color: rgb(183, 63, 63);
+  cursor: pointer;
+}
+
+.optionCounterButton:disabled{
+  cursor: not-allowed;
 }
 
 
