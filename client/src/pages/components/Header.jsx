@@ -7,9 +7,10 @@ import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { format } from 'date-fns';
+import { NavLink } from 'react-router-dom';
 
 const Header = ({ type }) => {
-  const [openDate, setOPenDate] = useState(false);
+  const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
     {
       startDate: new Date(),
@@ -17,7 +18,7 @@ const Header = ({ type }) => {
       key: 'selection',
     },
   ]);
-  const [openOptions, setOPenOPtions] = useState(false);
+  const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
     guest: 1,
   });
@@ -29,6 +30,25 @@ const Header = ({ type }) => {
         [name]: operation === 'i' ? options[name] + 1 : options[name] - 1,
       };
     });
+  };
+
+  const handleSearch = () => {
+    const searchParams = {
+      destination: '', // Get the destination value from the input field
+      startDate: date[0].startDate, // Pass the selected start date
+      endDate: date[0].endDate, // Pass the selected end date
+      guestCount: options.guest, // Pass the selected guest count
+    };
+
+    // Convert the search parameters to a query string
+    const queryString = new URLSearchParams(searchParams).toString();
+
+    // Construct the URL for the hotels page with the search parameters as query string
+    const url = `/hotels?${queryString}`;
+
+    // Navigate to the hotels page using NavLink
+    // Set the `to` prop of NavLink to the constructed URL
+    window.location.href = url;
   };
 
   return (
@@ -47,8 +67,10 @@ const Header = ({ type }) => {
                 Give us a chance to schedule your bookings and you will never regret as we offer you the best hospitality
                 places to chill with family and friends. Let's do this together.
               </p>
-              <button className='headerBtn'>Signin</button>
-            </>
+              <NavLink to='/signin' className='headerBtn'>
+                Signin
+              </NavLink>           
+             </>
           )}
         </div>              
         <div className='headerSearch'>
@@ -58,7 +80,7 @@ const Header = ({ type }) => {
           </div>
           <div className='headerSearchItem'>
             <FontAwesomeIcon icon={faCalendarDays} className='headerIcon' />
-            <span onClick={() => setOPenDate(!openDate)} className='headerSearchText'>
+            <span onClick={() => setOpenDate(!openDate)} className='headerSearchText'>
               {`${format(date[0].startDate, 'MM/dd/yyyy')} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}
             </span>
             {openDate && (
@@ -73,7 +95,7 @@ const Header = ({ type }) => {
           </div>
           <div className='headerSearchItem'>
             <FontAwesomeIcon icon={faPeopleGroup} className='headerIcon' />
-            <span onClick={() => setOPenOPtions(!openOptions)} className='headerSearchText'>
+            <span onClick={() => setOpenOptions(!openOptions)} className='headerSearchText'>
               {`${options.guest} guest`}
             </span>
             {openOptions && (
@@ -101,7 +123,9 @@ const Header = ({ type }) => {
             )}
           </div>
           <div className='headerSearchItem'>
-            <button className='headerBtn'>Search</button>
+            <NavLink to='/hotels' className='headerBtn' onClick={handleSearch}>
+              Search
+            </NavLink>
           </div>
         </div>             
       </div>
