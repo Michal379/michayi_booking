@@ -5,8 +5,11 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+# Hotels
+"Seeding..."
 images = [
-    "https://i.pinimg.com/236x/22/2e/e3/222ee330907609ea581578c3d03e23e1.jpg",
+    "https://i.pinimg.com/564x/bd/55/60/bd55607bfbaa59ba5ffee1fe0f894fd1.jpg",
     "https://i.pinimg.com/236x/f1/98/fd/f198fd89f746e82b86dd4adfaedaced5.jpg",
     "https://i.pinimg.com/564x/f2/ec/ba/f2ecbaf94347329c813b01d9340b84a3.jpg",
     "https://i.pinimg.com/236x/f0/8f/75/f08f75c05a9d8cce3841a80be753a87b.jpg",
@@ -24,7 +27,7 @@ images = [
     "https://i.pinimg.com/236x/4a/19/ac/4a19ac522ba0bf3b77ff972fd5c95a26.jpg",
     "https://i.pinimg.com/236x/d5/22/39/d522392a5d96bbcbeae2403e67044924.jpg",
     "https://i.pinimg.com/564x/24/77/56/247756aa3ae887526df6e7ad5e3b90b6.jpg",
-    "https://i.pinimg.com/236x/97/54/bb/9754bbdef0f27f57b8f65ec5a3d206d1.jpg",
+    "https://i.pinimg.com/236x/12/f4/ad/12f4ad5ea4ee48ded5b297b90db63067.jpg",
     "https://i.pinimg.com/236x/e9/8e/9d/e98e9de213aa75e16deb67ad05334e85.jpg"
 ]
 
@@ -37,6 +40,19 @@ images = [
     image: images.sample,
     rating: rand(1..5)
   )
+end
+
+# users
+10.times do
+  user = User.new(
+    name: Faker::Name.name,
+    email: Faker::Internet.email,
+    password: 'Password123!',
+    phone_number: Faker::Number.number(digits: rand(7..10)),
+    age: Faker::Number.between(from: 0, to: 90),
+    nation: Faker::Nation.nationality
+  )
+  user.save!
 end
 
 "Done seeding ..."
