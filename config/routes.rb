@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :users
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
   resources :hotels, only: [:index, :show] 
   # get '/hotels', to: 'hotels#index'
   # get '/hotels/:id', to: 'hotels#show'

@@ -20,8 +20,16 @@ Bundler.require(*Rails.groups)
 
 module MichayiBooking
   class Application < Rails::Application
+      # Adding cookies and session middleware
+      config.middleware.use ActionDispatch::Cookies
+      config.middleware.use ActionDispatch::Session::CookieStore
+  
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+
+    # https://owasp.org/www-community/SameSite
+    config.action_dispatch.cookies_same_site_protection = :strict
+
 
     # Configuration for the application, engines, and railties goes here.
     #
