@@ -13,20 +13,19 @@ const Hotel = () => {
 
 
   return (
-    <div className='hotel'>
-      {hotels.map((hotel) => (
-        <div key={hotel.id} className='hotelCard'>
-          <div className="imageContainer">
-          <img src={hotel.image} alt={hotel.name} className='hotelImage'/>
-          <button className='bookNow'>Reserve or Book</button>
-
-          </div>
-          <h3>{hotel.name}</h3>
-          <h5>{hotel.address}</h5>
-          <h5>{hotel.description}</h5>
-          <h5>Amenities: {hotel.amenities}</h5>
-          <h5>Rating: {hotel.rating}</h5>
+    <div className="hotel">
+    {hotels.map((hotel) => (
+      <div key={hotel.id} className="hotelCard">
+        <div className="imageContainer">
+          <img src={hotel.image} alt={hotel.name} className="hotelImage" />
+          <button className="bookNow">Reserve or Book</button>
         </div>
+        <h3>{hotel.name}</h3>
+        <h5>{hotel.address}</h5>
+        <h5>{hotel.description}</h5>
+        <h5>Amenities: {hotel.amenities}</h5>
+        <h5>Rating: {hotel.rating}</h5>
+      </div>
       ))}
       <div className="hotelDetails">
         <div className="hotelDetailsTexts">

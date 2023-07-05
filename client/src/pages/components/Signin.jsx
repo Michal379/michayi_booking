@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 const Signin = () => {
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone_number, setPhonenumber] = useState('');
   const [nationality, setNationality] = useState('');
   const [age, setAge] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [user, setUser] = useState(null); // Add user state
+  const [user, setUser] = useState(null); 
+
+  const navigate = useNavigate();  
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -20,17 +23,21 @@ const Signin = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username,
+        name,
         email,
         phone_number,
         password,
         nationality,
         age,
-        password_confirmation: passwordConfirmation,
+        // password_confirmation: passwordConfirmation,
       }),
-    }).then((r) => {
+    })
+    .then((r) => {
       if (r.ok) {
-        r.json().then((user) => setUser(user));
+        r.json().then((user) => {
+          setUser(user);
+          navigate('/login'); // Navigate to the login page
+        });
       }
     });
   }
@@ -40,13 +47,13 @@ const Signin = () => {
       <Navbar />
       <form onSubmit={handleSubmit}>
         <h1>Signi  In</h1>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="name">Username</label>
         <input
           type="text"
-          id="username"
+          id="name"
           autoComplete="off"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <label htmlFor="email">Email</label>
         <input
@@ -72,7 +79,7 @@ const Signin = () => {
           value={nationality}
           onChange={(e) => setNationality(e.target.value)}
         />
-        <label htmlFor="nationality">Age</label>
+        <label htmlFor="age">Age</label>
         <input
           type="text"
           id="age"
@@ -88,15 +95,15 @@ const Signin = () => {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
         />
-        <label htmlFor="password">Password Confirmation</label>
+        {/* <label htmlFor="password">Password Confirmation</label>
         <input
           type="password"
           id="password_confirmation"
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
           autoComplete="current-password"
-        />
-        <button type="submit">Sign Up</button>
+        /> */}
+        <button type="submit">Sign in</button>
       </form>
      < Footer />
     </div>

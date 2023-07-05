@@ -5,8 +5,11 @@ import Hotel from "./pages/components/Hotel";
 import AboutUs from "./pages/components/AboutUs";
 import Signin from "./pages/components/Signin";
 import Login from "./pages/components/Login";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(null);
+
   return (
     <BrowserRouter>
     <Routes>
@@ -14,7 +17,7 @@ function App() {
       <Route path="/hotels" element={<List />} />
       <Route path="/hotels/:id" element={<Hotel />} />
       <Route path="/signin" element={<Signin/>} /> 
-      <Route path="/login" element={<Login/>} />
+      <Route path="/login" element={<Login setUser={setUser}/>} />
       <Route path="/aboutus" element={<AboutUs/>} />      
     </Routes>    
     </BrowserRouter>

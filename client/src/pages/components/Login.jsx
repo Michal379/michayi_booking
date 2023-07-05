@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 function Login({ setUser }) {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -13,26 +15,33 @@ function Login({ setUser }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      }
-    });
+      body: JSON.stringify({ name, password }),
+    })
+      .then((r) => {
+        if (r.ok) {
+          r.json().then((user) => {
+            setUser(user);
+            navigate("/hotels"); // Redirect to the hotels page
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
   }
 
   return (
     <div>
-        <Navbar />
+      <Navbar />
       <form onSubmit={handleSubmit}>
         <h1>Login</h1>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="name">Username</label>
         <input
           type="text"
-          id="username"
+          id="name"
           autoComplete="off"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <label htmlFor="password">Password</label>
         <input
