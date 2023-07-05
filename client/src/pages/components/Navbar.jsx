@@ -36,6 +36,11 @@ const Navbar = () => {
                 About us
               </Link>
             </li>
+            <li className={`nav-item ${location.pathname === '/booked' ? 'active' : ''}`}>
+              <Link to="/booked" className="navButton">
+                Booked
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

@@ -5,6 +5,7 @@ import Hotel from "./pages/components/Hotel";
 import AboutUs from "./pages/components/AboutUs";
 import Signin from "./pages/components/Signin";
 import Login from "./pages/components/Login";
+import Booked from "./pages/components/Booked";
 import { useState } from "react";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path="/hotels/:id" element={<Hotel />} />
       <Route path="/signin" element={<Signin/>} /> 
       <Route path="/login" element={<Login setUser={setUser}/>} />
+      <Route path="/booked" element={<Booked />} />
       <Route path="/aboutus" element={<AboutUs/>} />      
     </Routes>    
     </BrowserRouter>
