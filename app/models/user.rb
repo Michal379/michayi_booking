@@ -1,6 +1,8 @@
 class User < ApplicationRecord
     has_many :reservations
     has_many :reviews
+
+    has_secure_password
   
     validates :name, presence: true, length: { minimum: 2 }
     validates :email, presence: true, length: { minimum: 5 }, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: 'must be a valid email address' }

@@ -49,7 +49,7 @@ end
     email: Faker::Internet.email,
     password: 'Password123!',
     phone_number: Faker::Number.number(digits: rand(7..10)),
-    age: Faker::Number.between(from: 0, to: 90),
+    age: Faker::Number.between(from: 18, to: 90),
     nationality: Faker::Nation.nationality
   )
   user.save!

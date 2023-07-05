@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :reviews
   resources :rooms
   resources :users
+  post '/signup', to: 'users#create'
+  get '/me', to: 'users#show'
   resources :hotels, only: [:index, :show] 
   # get '/hotels', to: 'hotels#index'
   # get '/hotels/:id', to: 'hotels#show'

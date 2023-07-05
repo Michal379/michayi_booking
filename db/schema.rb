@@ -61,8 +61,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_153339) do
     t.string "name"
     t.string "email"
     t.string "age"
-    t.string "nation"
-    t.string "password"
+    t.string "nationality"
+    t.string "password_digest"
     t.integer "phone_number"
     t.string "booking_history"
     t.datetime "created_at", null: false
