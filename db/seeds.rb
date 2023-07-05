@@ -50,7 +50,7 @@ end
     password: 'Password123!',
     phone_number: Faker::Number.number(digits: rand(7..10)),
     age: Faker::Number.between(from: 0, to: 90),
-    nation: Faker::Nation.nationality
+    nationality: Faker::Nation.nationality
   )
   user.save!
 end
