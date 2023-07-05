@@ -1,12 +1,11 @@
 .navbar{
-  height: 60px;
+  height: 100px;
   background-color: rgb(244, 154, 169);
   display: flex;
   justify-content: center;
-
 }
 
-.navbarContainer{
+ .navbarContainer{
   width: 100%;
   max-width: 1024px;
   color: rgb(189, 27, 138);
@@ -17,15 +16,39 @@
 
 .logo{
   font-weight: 1000;
+  font-size: 24px;
 }
 
-.navButton{
+.navItems {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item{
   margin-left: 20px;
-  border: none;
   padding: 6px 11px;
   cursor: pointer;
   color: rgb(218, 35, 22);
 }
+
+.nav-item.active {
+  background-color: blueviolet;
+  color: white;
+}
+
+.navButton {
+  padding: 6px 11px;
+  cursor: pointer;
+  color: rgb(218, 35, 22);
+  text-decoration: none;
+}
+
+.nav-item.active .navButton {
+  border: 1px solid blueviolet;
+}
+
 
 .header{
   background-color: rgb(232, 136, 67);
@@ -197,9 +220,6 @@
   color: rgb(249, 13, 116);
 }
 
-
-
-
 .hotel {
   display: flex;
   flex-wrap: wrap;
@@ -289,6 +309,27 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+form {
+  background-color: #fff8e7;
+  border: 1px solid salmon;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 0 auto;
+  padding: 0 1rem 1rem;
+}
+
+form input {
+  margin: 0.25rem 0;
+}
+
+form button[type="submit"] {
+  width: 40%;
+}
+
+
+
 
 
 
