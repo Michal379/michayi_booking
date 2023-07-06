@@ -55,4 +55,26 @@ end
   user.save!
 end
 
+# rooms
+15.times do
+  room = Room.new
+  room.hotel = Hotel.all.sample  
+  room.type = %w[Single Double Family Royal Suite].sample 
+  room.capacity = Faker::Number.between(from: 1, to: 20)  
+  
+  # Assign a random price based on the room type 
+  case room.type
+  when 'Single'
+    room.price = Faker::Number.between(from: 100, to: 500)
+  when 'Double'
+    room.price = Faker::Number.between(from: 500, to: 1000)
+  when 'Family'
+    room.price = Faker::Number.between(from: 10000, to: 18000)
+  when 'Royal Suite'
+    room.price = Faker::Number.between(from: 18000, to: 25000)
+  end
+
+  room.save
+end
+
 "Done seeding ..."

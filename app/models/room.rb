@@ -1,4 +1,5 @@
 class Room < ApplicationRecord
+    self.inheritance_column = :_room_type 
     belongs_to :hotel
 
     validates :type, inclusion: { in: %w[Single Double Family Royal Suite] }
