@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 
 function Login({ setUser }) {
   const [name, setName] = useState("");
@@ -32,7 +30,6 @@ function Login({ setUser }) {
 
   return (
     <div>
-      <Navbar />
       <form onSubmit={handleSubmit}>
         <h1>Login</h1>
         <label htmlFor="name">Username</label>
@@ -53,7 +50,6 @@ function Login({ setUser }) {
         />
         <button type="submit">Login</button>
       </form>
-      <Footer />
     </div>
   );
 }

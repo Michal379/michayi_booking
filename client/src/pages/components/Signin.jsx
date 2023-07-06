@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
-import Footer from './Footer';
+
 
 const Signin = () => {
   const [name, setName] = useState('');
@@ -44,7 +43,6 @@ const Signin = () => {
 
   return (
     <div>
-      <Navbar />
       <form onSubmit={handleSubmit}>
         <h1>Signi  In</h1>
         <label htmlFor="name">Username</label>
@@ -105,7 +103,6 @@ const Signin = () => {
         /> */}
         <button type="submit">Sign in</button>
       </form>
-     < Footer />
     </div>
   );
 };

@@ -1,11 +1,9 @@
 import React from 'react';
-import Navbar from './Navbar';
-import Footer from './Footer';
+
 
 const AboutUs = () => {
   return (
     <div>
-      <Navbar />
       <h1 style={{textAlign: 'center'}}>About Us</h1>
       <p>
         Welcome to MichayiBooking, your go-to platform for finding the perfect accommodations for your travel needs. 
@@ -45,7 +43,6 @@ const AboutUs = () => {
         Thank you for choosing MichayiBooking! We look forward to being a part of your travel adventures!
         </b>
       </p>
-      <Footer />
     </div>
   );
 };

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckDouble } from '@fortawesome/fontawesome-svg-core';
 
 const Hotel = () => {
   const [hotels, setHotels] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/hotels")
@@ -12,17 +13,19 @@ const Hotel = () => {
       .then((hotels) => setHotels(hotels));
   }, []);
 
-  console.log(hotels);
-
+  const handleBooking = (hotelId) => {
+    navigate(`/booked/${hotelId}`);
+  };
+  
   return (
     <div className="hotel">
       {hotels.map((hotel) => (
         <div key={hotel.id} className="hotelCard">
           <div className="imageContainer">
             <img src={hotel.image} alt={hotel.name} className="hotelImage" />
-            <Link to="/booked">
-            <button className="bookNow">Reserve or Book</button>
-            </Link>
+            <button className="bookNow" onClick={() => handleBooking(hotel.id)}>
+              Reserve or Book
+            </button>
           </div>
           <h3>{hotel.name}</h3>
           <h5>{hotel.address}</h5>
@@ -49,7 +52,7 @@ const Hotel = () => {
           <h2>
             <b>$1050</b> (10 nights)
           </h2>
-            <button>Reserve or Book!</button>
+          <button>Reserve or Book!</button>
         </div>
       </div>
     </div>
