@@ -3,8 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckDouble } from '@fortawesome/fontawesome-svg-core';
 
+
 const Hotel = () => {
   const [hotels, setHotels] = useState([]);
+  const [selectedHotelId, setSelectedHotelId] = useState(null); // Add selectedHotelId state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,6 +16,7 @@ const Hotel = () => {
   }, []);
 
   const handleBooking = (hotelId) => {
+    setSelectedHotelId(hotelId); // Set the selected hotel ID
     navigate(`/booked/${hotelId}`);
   };
   

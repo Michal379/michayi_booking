@@ -7,6 +7,7 @@ class CreateHotels < ActiveRecord::Migration[7.0]
       t.string :amenities
       t.string :image
       t.integer :rating
+      
 
       t.timestamps
     end
