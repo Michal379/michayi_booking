@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckDouble } from '@fortawesome/fontawesome-svg-core';
+import Login from './Login';
 
-const Hotel = () => {
+const Hotel = ({ setuser }) => {
   const [hotels, setHotels] = useState([]);
   const [selectedHotelId, setSelectedHotelId] = useState(null);
   const [rooms, setRooms] = useState([]);
+  const [showSignIn, setShowSignIn] = useState(false); // State to control the visibility of the sign-in form
+  const [user, setUser] = useState([]);
+  const [selectedRooms, setSelectedRooms] = useState([]); // State to store the selected rooms
 
   const navigate = useNavigate();
 
@@ -32,7 +36,27 @@ const Hotel = () => {
     setRooms(roomsArray);
     navigate(`/booked/${hotelId}?rooms=${encodeURIComponent(JSON.stringify(roomsArray))}`);
   };
-  
+
+  const handleSignIn = () => {
+    setShowSignIn(true);
+  };
+
+  const handleSignInSubmit = (user) => {
+    setUser(user);
+    setShowSignIn(false);
+  };
+
+  const handleRoomSelection = (roomId) => {
+    if (selectedRooms.includes(roomId)) {
+      setSelectedRooms(selectedRooms.filter((id) => id !== roomId));
+    } else {
+      setSelectedRooms([...selectedRooms, roomId]);
+    }
+  };
+
+  const isRoomSelected = (roomId) => {
+    return selectedRooms.includes(roomId);
+  };
 
   return (
     <div className="hotel">
@@ -40,9 +64,13 @@ const Hotel = () => {
         <div key={hotel.id} className="hotelCard">
           <div className="imageContainer">
             <img src={hotel.image} alt={hotel.name} className="hotelImage" />
-            <button className="bookNow" onClick={() => handleBooking(hotel.id)}>
-              Reserve or Book
-            </button>
+            {showSignIn ? (
+              <Login onSignInSubmit={handleSignInSubmit} />
+            ) : (
+              <button className="bookNow" onClick={() => handleBooking(hotel.id)}>
+                View rooms
+              </button>
+            )}
           </div>
           <h3>{hotel.name}</h3>
           <h5>{hotel.address}</h5>
@@ -51,13 +79,17 @@ const Hotel = () => {
           <h5>Rating: {hotel.rating}</h5>
         </div>
       ))}
-      {/* Render the available rooms for the selected hotel  */}
       {rooms.length > 0 && (
         <div>
           <h3>Available Rooms:</h3>
           {rooms.map((room) => (
             <div key={room.id}>
-              <h5>{room.type}</h5>
+              <button
+                className={isRoomSelected(room.id) ? 'selectedRoom' : 'room'}
+                onClick={() => handleRoomSelection(room.id)}
+              >
+                {room.type}
+              </button>
               <h5>Capacity: {room.capacity}</h5>
               <h5>Price: {room.price}</h5>
             </div>
@@ -76,13 +108,17 @@ const Hotel = () => {
             Unwind, relax, and create unforgettable memories at our remarkable hotel.
           </p>
         </div>
-        <div className="hrotelDetailsPrice">
+        <div className="hotelDetailsPrice">
           <h1>perfect for a 10-day stay</h1>
           <span>At the heart of Milenic city. With an unwavering rating of 5!</span>
           <h2>
             <b>$1050</b> (10 nights)
           </h2>
-          <button onClick={() => handleBooking(selectedHotelId)}>Reserve or Book!</button>
+          {showSignIn ? (
+            <Login onSignInSubmit={handleSignInSubmit} />
+          ) : (
+            <button onClick={handleSignIn}>Reserve or Book!</button>
+          )}
         </div>
       </div>
     </div>

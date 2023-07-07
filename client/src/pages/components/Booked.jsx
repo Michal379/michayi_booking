@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../../App.css';
 
-
 const Booked = () => {
   const { id } = useParams();
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [rooms, setRooms] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,12 +19,34 @@ const Booked = () => {
     if (selectedHotel) {
       fetch(`/hotels/${id}/rooms`)
         .then((response) => response.json())
-        .then((data) => setRooms(data));
+        .then((data) => {
+          const roomsArray = Array.isArray(data) ? data : [data];
+          setRooms(roomsArray);
+        });
     }
   }, [selectedHotel, id]);
 
+  useEffect(() => {
+    const storedSelectedRoom = localStorage.getItem('selectedRoom');
+    if (storedSelectedRoom && rooms.find((room) => room.id === storedSelectedRoom)) {
+      setSelectedRoom(storedSelectedRoom);
+    }
+  }, [rooms]);
+
+  const handleRoomSelection = (roomId) => {
+    if (selectedRoom === roomId) {
+      setSelectedRoom(null);
+      localStorage.removeItem('selectedRoom');
+    } else {
+      setSelectedRoom(roomId);
+      localStorage.setItem('selectedRoom', roomId);
+    }
+  };
+
   const handleRemove = () => {
     setSelectedHotel(null);
+    setSelectedRoom(null);
+    localStorage.removeItem('selectedRoom');
     navigate('/hotels');
   };
 
@@ -46,7 +68,14 @@ const Booked = () => {
           <h3>Available Rooms:</h3>
           {rooms.map((room) => (
             <div key={room.id}>
-              <h5>{room.type}</h5>
+              <input
+                type="checkbox"
+                checked={selectedRoom === room.id}
+                onChange={() => handleRoomSelection(room.id)}
+              />
+              <span className={selectedRoom === room.id ? 'selectedRoom' : 'room'}>
+                {room.type}
+              </span>
               <h5>Capacity: {room.capacity}</h5>
               <h5>Price: {room.price}</h5>
             </div>
