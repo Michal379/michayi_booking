@@ -31,6 +31,11 @@ const Navbar = () => {
                 Login
               </Link>
             </li>
+            <li className={`nav-item ${location.pathname === '/logout' ? 'active' : ''}`}>
+              <Link to="/logout" className="navButton">
+                Log out
+              </Link>
+            </li>
             <li className={`nav-item ${location.pathname === '/aboutus' ? 'active' : ''}`}>
               <Link to="/aboutus" className="navButton">
                 About us

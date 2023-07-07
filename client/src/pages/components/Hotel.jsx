@@ -32,6 +32,7 @@ const Hotel = () => {
     setRooms(roomsArray);
     navigate(`/booked/${hotelId}?rooms=${encodeURIComponent(JSON.stringify(roomsArray))}`);
   };
+  
 
   return (
     <div className="hotel">
@@ -75,7 +76,7 @@ const Hotel = () => {
             Unwind, relax, and create unforgettable memories at our remarkable hotel.
           </p>
         </div>
-        <div className="hotelDetailsPrice">
+        <div className="hrotelDetailsPrice">
           <h1>perfect for a 10-day stay</h1>
           <span>At the heart of Milenic city. With an unwavering rating of 5!</span>
           <h2>

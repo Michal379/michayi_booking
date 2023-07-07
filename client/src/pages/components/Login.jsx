@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function Login({ setUser }) {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("/login", {
-      method: "POST",
+    fetch('/login', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ name, password }),
     })
@@ -19,12 +20,16 @@ function Login({ setUser }) {
         if (r.ok) {
           r.json().then((user) => {
             setUser(user);
-            navigate("/hotels"); // Redirect to the hotels page
+            navigate('/hotels'); // Redirect to the hotels page
+            Swal.fire('Login Successful', '', 'success'); // Show success message
           });
+        } else {
+          Swal.fire('Invalid username or password', '', 'error'); // Show error message
         }
       })
       .catch((error) => {
-        console.log("Error:", error);
+        console.log('Error:', error);
+        Swal.fire('An error occurred', '', 'error'); // Show error message
       });
   }
 
