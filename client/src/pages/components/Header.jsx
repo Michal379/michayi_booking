@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHotel } from '@fortawesome/free-solid-svg-icons';
+import { faBed } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
 import { DateRange } from 'react-date-range';
@@ -11,6 +12,12 @@ import { NavLink } from 'react-router-dom';
 
 const Header = ({ type }) => {
   const [openDate, setOpenDate] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState('');
+
+  const handleRoomSelect = (roomType) => {
+    setSelectedRoom(roomType);
+  };
+
   const [date, setDate] = useState([
     {
       startDate: new Date(),
@@ -38,6 +45,7 @@ const Header = ({ type }) => {
       startDate: date[0].startDate, // Pass the selected start date
       endDate: date[0].endDate, // Pass the selected end date
       guestCount: options.guest, // Pass the selected guest count
+      roomType: selectedRoom, // Pass the selected room type
     };
 
     // Convert the search parameters to a query string
@@ -67,12 +75,12 @@ const Header = ({ type }) => {
                 Give us a chance to schedule your bookings and you will never regret as we offer you the best hospitality
                 places to chill with family and friends. Let's do this together.
               </p>
-              <NavLink to='/signin' className='headerBtn'>
-                Signin
-              </NavLink>           
-             </>
+              <NavLink to='/signup' className='headerBtn'>
+                Sign up
+              </NavLink>
+            </>
           )}
-        </div>              
+        </div>
         <div className='headerSearch'>
           <div className='headerSearchItem'>
             <FontAwesomeIcon icon={faHotel} className='headerIcon' />
@@ -123,11 +131,26 @@ const Header = ({ type }) => {
             )}
           </div>
           <div className='headerSearchItem'>
+            <FontAwesomeIcon icon={faBed} className='headerIcon' />
+            <select
+              value={selectedRoom}
+              onChange={(e) => handleRoomSelect(e.target.value)}
+              className='headerSearchInput'
+            >
+              <option value=''>Room Type</option>
+              <option value='Single'>Single</option>
+              <option value='Double'>Double</option>
+              <option value='Deluxe'>Deluxe</option>
+              <option value='Suite'>Suite</option>
+              <option value='Penthouse'>Penthouse</option>
+            </select>
+          </div>
+          <div className='headerSearchItem'>
             <NavLink to='/hotels' className='headerBtn' onClick={handleSearch}>
               Search
             </NavLink>
           </div>
-        </div>             
+        </div>
       </div>
     </div>
   );

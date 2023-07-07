@@ -32,6 +32,12 @@ class RoomsController < ApplicationController
       room.destroy
       head :no_content
     end
+
+    def hotel_rooms
+      hotel = Hotel.find(params[:hotelId])
+      rooms = hotel.rooms
+      render json: rooms.to_json(except: [:created_at, :updated_at])
+    end
   
     private
   

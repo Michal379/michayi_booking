@@ -56,25 +56,58 @@ end
 end
 
 # rooms
-15.times do
-  room = Room.new
-  room.hotel = Hotel.all.sample  
-  room.type = %w[Single Double Family Royal Suite].sample 
-  room.capacity = Faker::Number.between(from: 1, to: 20)  
-  
-  # Assign a random price based on the room type 
-  case room.type
-  when 'Single'
-    room.price = Faker::Number.between(from: 100, to: 500)
-  when 'Double'
-    room.price = Faker::Number.between(from: 500, to: 1000)
-  when 'Family'
-    room.price = Faker::Number.between(from: 10000, to: 18000)
-  when 'Royal Suite'
-    room.price = Faker::Number.between(from: 18000, to: 25000)
+# First, create an array of all the room types
+room_types = %w[Single Double Family Royal Suite]
+
+# Iterate through each hotel
+Hotel.all.each do |hotel|
+  # Shuffle the room types array to randomize the types assigned to the hotel
+  shuffled_room_types = room_types.shuffle
+
+  # Assign two random room types to the hotel
+  2.times do
+    room = Room.new
+    room.hotel = hotel
+    room.type = shuffled_room_types.pop
+    room.capacity = Faker::Number.between(from: 1, to: 20)
+
+    # Assign a random price based on the room type
+    case room.type
+    when 'Single'
+      room.price = Faker::Number.between(from: 100, to: 500)
+    when 'Double'
+      room.price = Faker::Number.between(from: 500, to: 1000)
+    when 'Family'
+      room.price = Faker::Number.between(from: 10000, to: 18000)
+    when 'Royal Suite'
+      room.price = Faker::Number.between(from: 18000, to: 25000)
+    end
+
+    room.save
   end
 
-  room.save
+  # Assign the remaining room types to the hotel
+  shuffled_room_types.each do |room_type|
+    room = Room.new
+    room.hotel = hotel
+    room.type = room_type
+    room.capacity = Faker::Number.between(from: 1, to: 20)
+
+    # Assign a random price based on the room type
+    case room.type
+    when 'Single'
+      room.price = Faker::Number.between(from: 100, to: 500)
+    when 'Double'
+      room.price = Faker::Number.between(from: 500, to: 1000)
+    when 'Family'
+      room.price = Faker::Number.between(from: 10000, to: 18000)
+    when 'Royal Suite'
+      room.price = Faker::Number.between(from: 18000, to: 25000)
+    end
+
+    room.save
+  end
 end
+
 
 "Done seeding ..."

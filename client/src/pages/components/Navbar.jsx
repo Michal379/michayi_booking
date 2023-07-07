@@ -21,9 +21,9 @@ const Navbar = () => {
                 Hotels
               </Link>
             </li>
-            <li className={`nav-item ${location.pathname === '/signin' ? 'active' : ''}`}>
-              <Link to="/signin" className="navButton">
-                Signin
+            <li className={`nav-item ${location.pathname === '/signup' ? 'active' : ''}`}>
+              <Link to="/signup" className="navButton">
+                Sign up
               </Link>
             </li>
             <li className={`nav-item ${location.pathname === '/login' ? 'active' : ''}`}>

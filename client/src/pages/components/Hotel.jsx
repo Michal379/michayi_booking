@@ -3,21 +3,38 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckDouble } from '@fortawesome/fontawesome-svg-core';
 
-
 const Hotel = () => {
   const [hotels, setHotels] = useState([]);
-  const [selectedHotelId, setSelectedHotelId] = useState(null); // Add selectedHotelId state
+  const [selectedHotelId, setSelectedHotelId] = useState(null);
+  const [rooms, setRooms] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/hotels")
-      .then((r) => r.json())
-      .then((hotels) => setHotels(hotels));
+      .then((response) => response.json())
+      .then((data) => setHotels(data));
   }, []);
 
-  const handleBooking = (hotelId) => {
-    setSelectedHotelId(hotelId); // Set the selected hotel ID
-    navigate(`/booked/${hotelId}`);
+  useEffect(() => {
+    if (selectedHotelId) {
+      fetch(`/hotels/${selectedHotelId}/rooms`)
+        .then((response) => response.json())
+        .then((data) => setRooms(data));
+    }
+  }, [selectedHotelId]);
+
+  useEffect(() => {
+    console.log(rooms); // Display updated rooms value in the console
+  }, [rooms]);
+
+  const handleBooking = async (hotelId) => {
+    setSelectedHotelId(hotelId);
+    const response = await fetch(`/hotels/${hotelId}/rooms`);
+    const data = await response.json();
+    const roomsArray = Array.isArray(data) ? data : [data]; // Convert single object to array if needed
+    setRooms(roomsArray);
+    navigate(`/booked/${hotelId}?rooms=${encodeURIComponent(JSON.stringify(roomsArray))}`);
   };
   
   return (
@@ -37,6 +54,19 @@ const Hotel = () => {
           <h5>Rating: {hotel.rating}</h5>
         </div>
       ))}
+       {/* Render the available rooms for the selected hotel  */}
+       {rooms.length > 0 && (
+  <div>
+    <h3>Available Rooms:</h3>
+    {rooms.map((room) => (
+      <div key={room.id}>
+        <h5>{room.type}</h5>
+        <h5>Capacity: {room.capacity}</h5>
+        <h5>Price: {room.price}</h5>
+      </div>
+    ))}
+  </div>
+)}
       <div className="hotelDetails">
         <div className="hotelDetailsTexts">
           <h1 className="hotelTitle">Stay in Milenic!</h1>

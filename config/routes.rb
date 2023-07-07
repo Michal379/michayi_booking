@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resources :rooms
   post '/sessions/rooms/:id/select_room', to: 'sessions#select_room'
   get '/sessions/rooms/get_selected_room', to: 'sessions#get_selected_room'
-
+  
+  # Add the following route for fetching rooms of a specific hotel
+  get '/hotels/:hotelId/rooms', to: 'rooms#hotel_rooms'
 
   # users routes
   resources :users
@@ -15,8 +17,6 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   resources :hotels, only: [:index, :show] 
-  # get '/hotels', to: 'hotels#index'
-  # get '/hotels/:id', to: 'hotels#show'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

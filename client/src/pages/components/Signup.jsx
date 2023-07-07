@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const Signin = () => {
+const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone_number, setPhonenumber] = useState('');
@@ -44,7 +44,7 @@ const Signin = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <h1>Signi  In</h1>
+        <h1>Signi  up</h1>
         <label htmlFor="name">Username</label>
         <input
           type="text"
@@ -101,10 +101,12 @@ const Signin = () => {
           onChange={(e) => setPasswordConfirmation(e.target.value)}
           autoComplete="current-password"
         /> */}
-        <button type="submit">Sign in</button>
+        <button type="submit">Sign up</button>
       </form>
+      <img src='https://i.pinimg.com/564x/79/00/3d/79003dbf0caeeb166923196e1f85a9ed.jpg'></img>
+
     </div>
   );
 };
 
-export default Signin;
+export default Signup;

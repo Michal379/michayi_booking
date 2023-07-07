@@ -1,10 +1,12 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import '../../App.css';
+
 
 const Booked = () => {
   const { id } = useParams();
   const [selectedHotel, setSelectedHotel] = useState(null);
+  const [rooms, setRooms] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,6 +14,14 @@ const Booked = () => {
       .then((response) => response.json())
       .then((data) => setSelectedHotel(data));
   }, [id]);
+
+  useEffect(() => {
+    if (selectedHotel) {
+      fetch(`/hotels/${id}/rooms`)
+        .then((response) => response.json())
+        .then((data) => setRooms(data));
+    }
+  }, [selectedHotel, id]);
 
   const handleRemove = () => {
     setSelectedHotel(null);
@@ -29,9 +39,21 @@ const Booked = () => {
           <h5>{selectedHotel.description}</h5>
           <h5>Amenities: {selectedHotel.amenities}</h5>
           <h5>Rating: {selectedHotel.rating}</h5>
-          <button onClick={handleRemove}>Remove</button>
         </div>
       )}
+      {rooms.length > 0 && (
+        <div>
+          <h3>Available Rooms:</h3>
+          {rooms.map((room) => (
+            <div key={room.id}>
+              <h5>{room.type}</h5>
+              <h5>Capacity: {room.capacity}</h5>
+              <h5>Price: {room.price}</h5>
+            </div>
+          ))}
+        </div>
+      )}
+      <button onClick={handleRemove}>Remove</button>
     </div>
   );
 };
