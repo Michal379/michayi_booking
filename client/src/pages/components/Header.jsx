@@ -9,6 +9,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { format } from 'date-fns';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ type }) => {
   const [openDate, setOpenDate] = useState(false);
@@ -39,6 +40,8 @@ const Header = ({ type }) => {
     });
   };
 
+  const navigate = useNavigate();
+
   const handleSearch = () => {
     const searchParams = {
       destination: '', // Get the destination value from the input field
@@ -54,9 +57,8 @@ const Header = ({ type }) => {
     // Construct the URL for the hotels page with the search parameters as query string
     const url = `/hotels?${queryString}`;
 
-    // Navigate to the hotels page using NavLink
-    // Set the `to` prop of NavLink to the constructed URL
-    window.location.href = url;
+    // Navigate to the hotels page programmatically
+    navigate(url);
   };
 
   return (
@@ -146,9 +148,9 @@ const Header = ({ type }) => {
             </select>
           </div>
           <div className='headerSearchItem'>
-            <NavLink to='/hotels' className='headerBtn' onClick={handleSearch}>
+            <button className='headerBtn' onClick={handleSearch}>
               Search
-            </NavLink>
+            </button>
           </div>
         </div>
       </div>

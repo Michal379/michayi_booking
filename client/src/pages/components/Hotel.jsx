@@ -24,10 +24,6 @@ const Hotel = () => {
     }
   }, [selectedHotelId]);
 
-  useEffect(() => {
-    console.log(rooms); // Display updated rooms value in the console
-  }, [rooms]);
-
   const handleBooking = async (hotelId) => {
     setSelectedHotelId(hotelId);
     const response = await fetch(`/hotels/${hotelId}/rooms`);
@@ -36,7 +32,7 @@ const Hotel = () => {
     setRooms(roomsArray);
     navigate(`/booked/${hotelId}?rooms=${encodeURIComponent(JSON.stringify(roomsArray))}`);
   };
-  
+
   return (
     <div className="hotel">
       {hotels.map((hotel) => (
@@ -54,19 +50,19 @@ const Hotel = () => {
           <h5>Rating: {hotel.rating}</h5>
         </div>
       ))}
-       {/* Render the available rooms for the selected hotel  */}
-       {rooms.length > 0 && (
-  <div>
-    <h3>Available Rooms:</h3>
-    {rooms.map((room) => (
-      <div key={room.id}>
-        <h5>{room.type}</h5>
-        <h5>Capacity: {room.capacity}</h5>
-        <h5>Price: {room.price}</h5>
-      </div>
-    ))}
-  </div>
-)}
+      {/* Render the available rooms for the selected hotel  */}
+      {rooms.length > 0 && (
+        <div>
+          <h3>Available Rooms:</h3>
+          {rooms.map((room) => (
+            <div key={room.id}>
+              <h5>{room.type}</h5>
+              <h5>Capacity: {room.capacity}</h5>
+              <h5>Price: {room.price}</h5>
+            </div>
+          ))}
+        </div>
+      )}
       <div className="hotelDetails">
         <div className="hotelDetailsTexts">
           <h1 className="hotelTitle">Stay in Milenic!</h1>
@@ -81,11 +77,11 @@ const Hotel = () => {
         </div>
         <div className="hotelDetailsPrice">
           <h1>perfect for a 10-day stay</h1>
-          <span>At the heart of Milenic city. With unwavering rating of 5!</span>
+          <span>At the heart of Milenic city. With an unwavering rating of 5!</span>
           <h2>
             <b>$1050</b> (10 nights)
           </h2>
-          <button>Reserve or Book!</button>
+          <button onClick={() => handleBooking(selectedHotelId)}>Reserve or Book!</button>
         </div>
       </div>
     </div>

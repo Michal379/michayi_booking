@@ -324,6 +324,18 @@ form button[type="submit"] {
   width: 40%;
 }
 
+.signup-container {
+  display: flex; 
+}
+
+.signup-image {
+  width: 100%;
+  height: auto;
+  margin-right: ;
+}
+
+
+
 
 
 
