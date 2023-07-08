@@ -16,6 +16,8 @@ import Footer from './pages/components/Footer';
 function App() {
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState('');
+  const [userDetails, setUserDetails] = useState(null);
+
 
   return (
     <BrowserRouter>
@@ -27,8 +29,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login setUser={setUser} setMessage={setMessage} />} />
         <Route path="/logout" element={<Logout setMessage={setMessage} />} />
-        <Route path="/booked/:id" element={<Booked />} />
-        <Route path="/booking-details/:hotelId/:roomId" element={BookingDetailsPage} />
+        <Route path="/booked/:id" element={<Booked userDetails={userDetails}/>} />
+        <Route path="/booking-details" element={<BookingDetailsPage userDetails={userDetails}/>} />
         <Route path="/aboutus" element={<AboutUs />} />
       </Routes>
       <Footer />

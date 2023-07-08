@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import '../../App.css';
 import Rating from './Rating';
 
-const Booked = () => {
+const Booked = ({ userDetails }) => { // Add userDetails as a prop
   const { id } = useParams();
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [rooms, setRooms] = useState([]);
@@ -35,17 +35,24 @@ const Booked = () => {
   }, [rooms]);
 
   const handleRoomSelection = (roomId) => {
-    if (selectedRoom === roomId) {
-      setSelectedRoom(null);
-      localStorage.removeItem('selectedRoom');
-    } else {
-      setSelectedRoom(roomId);
+    const selectedRoom = rooms.find((room) => room.id === roomId);
+    if (selectedRoom) {
+      setSelectedRoom(selectedRoom);
       localStorage.setItem('selectedRoom', roomId);
-      
+  
       // Navigate to booking details page
-      navigate(`/booking-details/${id}/${roomId}`);
+      navigate(`/booking-details`, {
+        state: {
+          userDetails: userDetails,
+          roomType: selectedRoom.type,
+          roomPrice: selectedRoom.price,
+          hotel: selectedHotel,
+          hotelName: selectedHotel.name, // Add hotelName property to the state object
+        },
+      });
     }
   };
+  
 
   const handleRemove = () => {
     setSelectedHotel(null);

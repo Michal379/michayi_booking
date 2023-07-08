@@ -1,24 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHotel } from '@fortawesome/free-solid-svg-icons';
 import { faBed } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
-import { DateRange } from 'react-date-range';
+import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { format } from 'date-fns';
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Header = ({ type }) => {
   const [openDate, setOpenDate] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState('');
-
-  const handleRoomSelect = (roomType) => {
-    setSelectedRoom(roomType);
-  };
-
   const [date, setDate] = useState([
     {
       startDate: new Date(),
@@ -30,6 +24,12 @@ const Header = ({ type }) => {
   const [options, setOptions] = useState({
     guest: 1,
   });
+
+  const destinationRef = useRef(null); // Ref for the destination input field
+
+  const handleRoomSelect = (roomType) => {
+    setSelectedRoom(roomType);
+  };
 
   const handleOption = (name, operation) => {
     setOptions((prev) => {
@@ -44,20 +44,15 @@ const Header = ({ type }) => {
 
   const handleSearch = () => {
     const searchParams = {
-      destination: '', // Get the destination value from the input field
-      startDate: date[0].startDate, // Pass the selected start date
-      endDate: date[0].endDate, // Pass the selected end date
-      guestCount: options.guest, // Pass the selected guest count
-      roomType: selectedRoom, // Pass the selected room type
+      destination: destinationRef.current.value, // Get the value from the input field using the ref
+      startDate: date[0].startDate,
+      endDate: date[0].endDate,
+      guestCount: options.guest,
+      roomType: selectedRoom,
     };
 
-    // Convert the search parameters to a query string
     const queryString = new URLSearchParams(searchParams).toString();
-
-    // Construct the URL for the hotels page with the search parameters as query string
     const url = `/hotels?${queryString}`;
-
-    // Navigate to the hotels page programmatically
     navigate(url);
   };
 
@@ -86,7 +81,7 @@ const Header = ({ type }) => {
         <div className='headerSearch'>
           <div className='headerSearchItem'>
             <FontAwesomeIcon icon={faHotel} className='headerIcon' />
-            <input type='text' placeholder='destination' className='headerSearchInput' />
+            <input type='text' placeholder='destination' className='headerSearchInput' ref={destinationRef} />
           </div>
           <div className='headerSearchItem'>
             <FontAwesomeIcon icon={faCalendarDays} className='headerIcon' />
@@ -94,12 +89,11 @@ const Header = ({ type }) => {
               {`${format(date[0].startDate, 'MM/dd/yyyy')} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}
             </span>
             {openDate && (
-              <DateRange
-                editableDateInputs={true}
+              <DateRangePicker
                 onChange={(item) => setDate([item.selection])}
+                showSelectionPreview={true}
                 moveRangeOnFirstSelection={false}
                 ranges={date}
-                className='date'
               />
             )}
           </div>
@@ -143,7 +137,8 @@ const Header = ({ type }) => {
               <option value='Single'>Single</option>
               <option value='Double'>Double</option>
               <option value='Deluxe'>Family</option>
-              <option value='Suite'>Royal Suite</option>
+              <option value='Deluxe'>Deluxe</option>
+              <option value='Suite'>Royal</option>
             </select>
           </div>
           <div className='headerSearchItem'>

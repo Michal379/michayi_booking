@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckDouble } from '@fortawesome/fontawesome-svg-core';
 import Login from './Login';
 
+
 const Hotel = ({ setuser }) => {
   const [hotels, setHotels] = useState([]);
   const [selectedHotelId, setSelectedHotelId] = useState(null);
@@ -51,18 +52,20 @@ const Hotel = ({ setuser }) => {
     const selectedRoom = rooms.find((room) => room.id === roomId);
     if (selectedRoom) {
       setSelectedRoom(selectedRoom);
-      navigate(`/booking-details/${selectedHotelId}/${selectedRoom.id}`, {
+      setSelectedRooms([roomId]); // Update selected rooms
+      navigate(`/booking-details`, {
         state: {
           userDetails: user,
-          hotelName: selectedHotelId, // Use selectedHotelId instead of selectedHotel.name
+          hotelName: hotels.find((hotel) => hotel.id === selectedHotelId).name, // Fetch the hotel name using selectedHotelId
           roomType: selectedRoom.type,
-          roomPrice: selectedRoom.price
-        }
+          roomPrice: selectedRoom.price,
+          hotel: hotels.find((hotel) => hotel.id === selectedHotelId),
+        },
       });
     }
-  }; 
+  };
   
-   
+  
   
   const isRoomSelected = (roomId) => {
     return selectedRooms.includes(roomId);
