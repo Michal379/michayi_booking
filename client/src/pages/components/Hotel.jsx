@@ -11,6 +11,7 @@ const Hotel = ({ setuser }) => {
   const [showSignIn, setShowSignIn] = useState(false); // State to control the visibility of the sign-in form
   const [user, setUser] = useState([]);
   const [selectedRooms, setSelectedRooms] = useState([]); // State to store the selected rooms
+  const [selectedRoom, setSelectedRoom] = useState(null);
 
   const navigate = useNavigate();
 
@@ -47,13 +48,22 @@ const Hotel = ({ setuser }) => {
   };
 
   const handleRoomSelection = (roomId) => {
-    if (selectedRooms.includes(roomId)) {
-      setSelectedRooms(selectedRooms.filter((id) => id !== roomId));
-    } else {
-      setSelectedRooms([...selectedRooms, roomId]);
+    const selectedRoom = rooms.find((room) => room.id === roomId);
+    if (selectedRoom) {
+      setSelectedRoom(selectedRoom);
+      navigate(`/booking-details/${selectedHotelId}/${selectedRoom.id}`, {
+        state: {
+          userDetails: user,
+          hotelName: selectedHotelId, // Use selectedHotelId instead of selectedHotel.name
+          roomType: selectedRoom.type,
+          roomPrice: selectedRoom.price
+        }
+      });
     }
-  };
-
+  }; 
+  
+   
+  
   const isRoomSelected = (roomId) => {
     return selectedRooms.includes(roomId);
   };

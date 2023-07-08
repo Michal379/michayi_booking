@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import BookingDetails from './BookingDetails';
 
 const BookingDetailsPage = () => {
   const location = useLocation();
@@ -8,7 +7,13 @@ const BookingDetailsPage = () => {
 
   return (
     <div>
-      <BookingDetails userDetails={userDetails} hotelName={hotelName} roomType={roomType} />
+      <h1>Booking Details</h1>
+      <h2>Hotel: {hotelName}</h2>
+      <h3>User Details:</h3>
+      <p>Name: {userDetails.name}</p>
+      <p>Email: {userDetails.email}</p>
+      <p>Phone: {userDetails.phone}</p>
+      <h3>Room Type: {roomType}</h3>
     </div>
   );
 };

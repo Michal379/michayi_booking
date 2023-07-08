@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -9,10 +8,9 @@ const Signup = () => {
   const [nationality, setNationality] = useState('');
   const [age, setAge] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
 
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -28,23 +26,31 @@ const Signup = () => {
         password,
         nationality,
         age,
-        // password_confirmation: passwordConfirmation,
       }),
-    })
-    .then((r) => {
+    }).then((r) => {
       if (r.ok) {
         r.json().then((user) => {
           setUser(user);
           navigate('/login'); // Navigate to the login page
+          resetFormFields(); // Reset the form fields after successful login
         });
       }
     });
   }
 
+  function resetFormFields() {
+    setName('');
+    setEmail('');
+    setPhonenumber('');
+    setNationality('');
+    setAge('');
+    setPassword('');
+  }
+
   return (
     <div className="signup-container">
       <form className="signup-form" onSubmit={handleSubmit}>
-        <h1>Sign  up</h1>
+        <h1>Sign up</h1>
         <label htmlFor="name">Username</label>
         <input
           type="text"
@@ -93,14 +99,6 @@ const Signup = () => {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
         />
-        {/* <label htmlFor="password">Password Confirmation</label>
-        <input
-          type="password"
-          id="password_confirmation"
-          value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-          autoComplete="current-password"
-        /> */}
         <button type="submit">Sign up</button>
       </form>
       <div className="signup-image-container">

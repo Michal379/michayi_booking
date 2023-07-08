@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-const Logout = ({ setMessage }) => {
+const Logout = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -14,17 +14,15 @@ const Logout = ({ setMessage }) => {
         if (response.ok) {
           navigate('/login'); // Redirect to the login page after successful logout
           Swal.fire('Logout Successful', '', 'success'); // Show success message
-          setMessage('Logout successful'); // Set the logout message
         } else {
+          // Handle logout failure
           console.log('Logout failed');
-          Swal.fire('Logout Failed', '', 'error'); // Show error message
-          setMessage('Logout failed'); // Set the logout failure message
+          Swal.fire('Logout Failed', '', 'error'); // Show failure message
         }
       })
       .catch((error) => {
         console.log('Error:', error);
         Swal.fire('An Error Occurred', '', 'error'); // Show error message
-        setMessage('An error occurred'); // Set the error message
       });
   };
 

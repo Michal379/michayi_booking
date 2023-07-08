@@ -40,8 +40,12 @@ const Booked = () => {
     } else {
       setSelectedRoom(roomId);
       localStorage.setItem('selectedRoom', roomId);
+      
+      // Navigate to booking details page
+      navigate(`/booking-details/${id}/${roomId}`);
     }
   };
+  
 
   const handleRemove = () => {
     setSelectedHotel(null);
@@ -49,6 +53,7 @@ const Booked = () => {
     localStorage.removeItem('selectedRoom');
     navigate('/hotels');
   };
+  
 
   return (
     <div>
