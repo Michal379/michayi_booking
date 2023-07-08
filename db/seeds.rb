@@ -52,7 +52,7 @@ addresses = ['Nairobi', 'Nakuru', 'Mombasa', 'Naivasha', 'Kisumu']
     description: Faker::Lorem.paragraph,
     amenities: amenities.sample(rand(1..4)).join(", "),
     image: images.sample,
-    rating: rand(1..5)
+    rating: rand(3..5)
   )
 end
 

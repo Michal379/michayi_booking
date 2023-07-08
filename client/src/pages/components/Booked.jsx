@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../../App.css';
+import Rating from './Rating';
 
 const Booked = () => {
   const { id } = useParams();
@@ -45,7 +46,6 @@ const Booked = () => {
       navigate(`/booking-details/${id}/${roomId}`);
     }
   };
-  
 
   const handleRemove = () => {
     setSelectedHotel(null);
@@ -53,38 +53,39 @@ const Booked = () => {
     localStorage.removeItem('selectedRoom');
     navigate('/hotels');
   };
-  
 
   return (
-    <div>
+    <div className="booked-container">
       <h1>Booked Successfully!</h1>
       {selectedHotel && (
-        <div>
+        <div className="hotel-details">
           <img src={selectedHotel.image} alt={selectedHotel.name} />
           <h3>{selectedHotel.name}</h3>
           <h5>{selectedHotel.address}</h5>
-          <h5>{selectedHotel.description}</h5>
-          <h5>Amenities: {selectedHotel.amenities}</h5>
-          <h5>Rating: {selectedHotel.rating}</h5>
+          <p>{selectedHotel.description}</p>
+          <p>Amenities: {selectedHotel.amenities}</p>
+          <p>Rating: {selectedHotel.rating}</p>
         </div>
       )}
       {rooms.length > 0 && (
-        <div>
+        <div className="rooms-container">
           <h3>Available Rooms:</h3>
-          {rooms.map((room) => (
-            <div key={room.id}>
-              <input
-                type="checkbox"
-                checked={selectedRoom === room.id}
-                onChange={() => handleRoomSelection(room.id)}
-              />
-              <span className={selectedRoom === room.id ? 'selectedRoom' : 'room'}>
-                {room.type}
-              </span>
-              <h5>Capacity: {room.capacity}</h5>
-              <h5>Price: {room.price}</h5>
-            </div>
-          ))}
+          <div className="rooms-grid">
+            {rooms.map((room) => (
+              <div key={room.id} className="room-item">
+                <input
+                  type="checkbox"
+                  checked={selectedRoom === room.id}
+                  onChange={() => handleRoomSelection(room.id)}
+                />
+                <span className={selectedRoom === room.id ? 'selectedRoom' : 'room'}>
+                  {room.type}
+                </span>
+                <p>Capacity: {room.capacity}</p>
+                <p>Price: {room.price}</p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
       <button onClick={handleRemove}>Remove</button>
