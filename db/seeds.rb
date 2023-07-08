@@ -69,32 +69,36 @@ end
   user.save!
 end
 
-# rooms
-# First, create an array of all the room types
-room_types = %w[Single Double Family Royal Suite]
+room_types = %w[Single Double Family Deluxe Royal]
 
 # Iterate through each hotel
 Hotel.all.each do |hotel|
   # Shuffle the room types array to randomize the types assigned to the hotel
   shuffled_room_types = room_types.shuffle
 
-  # Assign two random room types to the hotel
-  2.times do
+  # Assign three random room types to the hotel
+  3.times do
     room = Room.new
     room.hotel = hotel
     room.type = shuffled_room_types.pop
-    room.capacity = Faker::Number.between(from: 1, to: 20)
 
-    # Assign a random price based on the room type
+    # Assign a random price and capacity based on the room type
     case room.type
     when 'Single'
-      room.price = Faker::Number.between(from: 100, to: 500)
+      room.price = Faker::Number.between(from: 1000, to: 8000)
+      room.capacity = Faker::Number.between(from: 1, to: 4)
     when 'Double'
-      room.price = Faker::Number.between(from: 500, to: 1000)
+      room.price = Faker::Number.between(from: 10000, to: 20000)
+      room.capacity = Faker::Number.between(from: 2, to: 20)
     when 'Family'
-      room.price = Faker::Number.between(from: 10000, to: 18000)
-    when 'Royal Suite'
-      room.price = Faker::Number.between(from: 18000, to: 25000)
+      room.price = Faker::Number.between(from: 20000, to: 30000)
+      room.capacity = Faker::Number.between(from: 4, to: 20)
+    when 'Deluxe'
+      room.price = Faker::Number.between(from: 30000, to: 50000)
+      room.capacity = Faker::Number.between(from: 3, to: 20)
+    when 'Royal'
+      room.price = Faker::Number.between(from: 50000, to: 80000)
+      room.capacity = Faker::Number.between(from: 3, to: 10)
     end
 
     room.save
@@ -107,21 +111,30 @@ Hotel.all.each do |hotel|
     room.type = room_type
     room.capacity = Faker::Number.between(from: 1, to: 20)
 
-    # Assign a random price based on the room type
+    # Assign a random price and capacity based on the room type
     case room.type
     when 'Single'
-      room.price = Faker::Number.between(from: 100, to: 500)
+      room.price = Faker::Number.between(from: 1000, to: 8000)
+      room.capacity = Faker::Number.between(from: 1, to: 4)
     when 'Double'
-      room.price = Faker::Number.between(from: 500, to: 1000)
+      room.price = Faker::Number.between(from: 10000, to: 20000)
+      room.capacity = Faker::Number.between(from: 2, to: 20)
     when 'Family'
-      room.price = Faker::Number.between(from: 10000, to: 18000)
-    when 'Royal Suite'
-      room.price = Faker::Number.between(from: 18000, to: 25000)
+      room.price = Faker::Number.between(from: 20000, to: 30000)
+      room.capacity = Faker::Number.between(from: 4, to: 20)
+    when 'Deluxe'
+      room.price = Faker::Number.between(from: 30000, to: 50000)
+      room.capacity = Faker::Number.between(from: 3, to: 20)
+    when 'Royal'
+      room.price = Faker::Number.between(from: 50000, to: 80000)
+      room.capacity = Faker::Number.between(from: 2, to: 10)
     end
 
     room.save
   end
 end
+
+
 
 
 "Done seeding ..."

@@ -142,9 +142,8 @@ const Header = ({ type }) => {
               <option value=''>Room Type</option>
               <option value='Single'>Single</option>
               <option value='Double'>Double</option>
-              <option value='Deluxe'>Deluxe</option>
-              <option value='Suite'>Suite</option>
-              <option value='Penthouse'>Penthouse</option>
+              <option value='Deluxe'>Family</option>
+              <option value='Suite'>Royal Suite</option>
             </select>
           </div>
           <div className='headerSearchItem'>

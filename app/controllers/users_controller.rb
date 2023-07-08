@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, only: [:index]
-
+  skip_before_action :authenticate_user, only: [:create]
     
     def index
       users = User.all
@@ -26,12 +25,7 @@ class UsersController < ApplicationController
       end
     end
   
-    def update
-      user = find_user
-      user.update(user_params)
-      render json: user.to_json(except: [:created_at, :updated_at])
-    end
-  
+    
     def destroy
       user = find_user
       user.destroy
