@@ -1,19 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone_number, setPhonenumber] = useState('');
+  const [phone_number, setPhoneNumber] = useState('');
   const [nationality, setNationality] = useState('');
   const [age, setAge] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    resetFormFields();
+  }, []); // Empty dependency array to run the effect only once when the component mounts
+
   function handleSubmit(e) {
     e.preventDefault();
+
+    // Form validation
+    const validationErrors = {};
+    if (!name) {
+      validationErrors.name = 'Name is required';
+    }
+    if (!email) {
+      validationErrors.email = 'Email is required';
+    }
+    // Add validation for other fields
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     fetch('/signin', {
       method: 'POST',
       headers: {
@@ -27,21 +48,29 @@ const Signup = () => {
         nationality,
         age,
       }),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((user) => {
-          setUser(user);
-          navigate('/login'); // Navigate to the login page
-          resetFormFields(); // Reset the form fields after successful login
-        });
-      }
-    });
+    })
+      .then((r) => {
+        if (r.ok) {
+          r.json().then((user) => {
+            setUser(user);
+            navigate('/login'); // Navigate to the login page
+            resetFormFields(); // Reset the form fields after successful signup
+          });
+        } else {
+          r.json().then((errorData) => {
+            setErrors(errorData.errors);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   function resetFormFields() {
     setName('');
     setEmail('');
-    setPhonenumber('');
+    setPhoneNumber('');
     setNationality('');
     setAge('');
     setPassword('');
@@ -59,6 +88,8 @@ const Signup = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+        {errors.name && <div className="error">{errors.name}</div>}
+
         <label htmlFor="email">Email</label>
         <input
           type="text"
@@ -67,14 +98,18 @@ const Signup = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {errors.email && <div className="error">{errors.email}</div>}
+
         <label htmlFor="phone-number">Phone number</label>
         <input
           type="text"
           id="phone_number"
           autoComplete="off"
           value={phone_number}
-          onChange={(e) => setPhonenumber(e.target.value)}
+          onChange={(e) => setPhoneNumber(e.target.value)}
         />
+        {errors.phone_number && <div className="error">{errors.phone_number}</div>}
+
         <label htmlFor="nationality">Nationality</label>
         <input
           type="text"
@@ -83,6 +118,8 @@ const Signup = () => {
           value={nationality}
           onChange={(e) => setNationality(e.target.value)}
         />
+        {/* Add validation error rendering for nationality field */}
+
         <label htmlFor="age">Age</label>
         <input
           type="text"
@@ -91,6 +128,8 @@ const Signup = () => {
           value={age}
           onChange={(e) => setAge(e.target.value)}
         />
+        {/* Add validation error rendering for age field */}
+
         <label htmlFor="password">Password</label>
         <input
           type="password"
@@ -99,6 +138,8 @@ const Signup = () => {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
         />
+        {/* Add validation error rendering for password field */}
+
         <button type="submit">Sign up</button>
       </form>
       <div className="signup-image-container">

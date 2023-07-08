@@ -9,10 +9,10 @@
 # Hotels
 "Seeding..."
 images = [
-    "https://i.pinimg.com/564x/bd/55/60/bd55607bfbaa59ba5ffee1fe0f894fd1.jpg",
-    "https://i.pinimg.com/236x/f1/98/fd/f198fd89f746e82b86dd4adfaedaced5.jpg",
-    "https://i.pinimg.com/564x/f2/ec/ba/f2ecbaf94347329c813b01d9340b84a3.jpg",
-    "https://i.pinimg.com/236x/f0/8f/75/f08f75c05a9d8cce3841a80be753a87b.jpg",
+    "https://lh3.googleusercontent.com/p/AF1QipOlzKBumFJzUKHe1OLVSOhxLBCWd4JWFRuxpsyY=w296-h202-n-k-rw-no-v1",
+    "https://lh3.googleusercontent.com/gps-proxy/AF-Tc0SE8OJy7-I5oaheXJOp_gXdZyxO1pAQdHtVQeZjHiJBU3yzGnNXtBgGlModQ16cd4Oq6t8SEb0Uqa1VWjfCjUBpyC0mHqsOiJdq5pOeYUXBaLobZY2BUgwhaHE3CJwhindU-xC7gE86AZJ9c7s-WlUD8f_9rxO8_rMqfLPCqq6KdKxVfGbC_Ds=w296-h202-n-k-rw-no-v1",
+    "https://lh3.googleusercontent.com/gps-proxy/AF-Tc0Q6D9RGSetgzAAFENhOcwiRsr4oPDTHz1SNygXzEl0E8n3T8OAb2rf3GlLBc7y-vLxc_RPjI7s-bxhDxy46wt4pENAfEKq8biOFNdKC-rQTzTQshJXpOV7yPDIn2a5Swkr9I06LrG6QI_N6rSWqZ7j0FRpUK7-GSu1A-tR0LN2FUi7Bdth5m8AA=w296-h202-n-k-rw-no-v1",
+    "https://imgcy.trivago.com/if_iw_lte_ih,c_scale,w_236/if_else,c_scale,h_160/e_improve,q_auto:low/d_dummy.jpeg,f_auto,q_auto//partnerimages/52/91/529192408.jpeg",
     "https://i.pinimg.com/236x/21/18/c1/2118c1f92f798b0af7613a7fecaf4bd9.jpg",
     "https://i.pinimg.com/236x/60/45/c8/6045c80c49fac59baf01d848a4c7083e.jpg",
     "https://i.pinimg.com/564x/84/ab/11/84ab1152f44e66353ffb99c0512a62df.jpg",
@@ -31,12 +31,26 @@ images = [
     "https://i.pinimg.com/236x/e9/8e/9d/e98e9de213aa75e16deb67ad05334e85.jpg"
 ]
 
+
+names = [
+  'Crown Plaza', 'Raddison Blu Hotel', 'The Sarova Stanley', 'Best Western', 'Ibis Styles',
+  'Royal Tulip', 'Swiss Lenana', 'Hilton Inn', 'The Heron Portico', 'Turtle Bay',
+  'The Backpackers', 'Ole Sereni', 'Kingfisher Casa', 'Panafric', 'The Emory',
+  'The Fairview', 'Tamarind Tree Hotel', 'Cocord Hotel', 'Weston', 'La Mada'
+]
+
+amenities = ['swimming pool', 'parking', 'strong Wi-Fi', 'gym']
+addresses = ['Nairobi', 'Nakuru', 'Mombasa', 'Naivasha', 'Kisumu']
+
 20.times do
-  Hotel.create(
-    name: Faker::Company.name,
-    address: Faker::Address.full_address,
+  name = names.delete_at(rand(names.length))
+  address = addresses.sample
+
+  hotel = Hotel.create(
+    name: name,
+    address: address,
     description: Faker::Lorem.paragraph,
-    amenities: Faker::Lorem.words(number: 4).join(", "),
+    amenities: amenities.sample(rand(1..4)).join(", "),
     image: images.sample,
     rating: rand(1..5)
   )
