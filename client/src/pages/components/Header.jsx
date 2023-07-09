@@ -1,23 +1,23 @@
-import React, { useState, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHotel } from '@fortawesome/free-solid-svg-icons';
-import { faBed } from '@fortawesome/free-solid-svg-icons';
-import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
-import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
-import { DateRangePicker } from 'react-date-range';
-import 'react-date-range/dist/styles.css'; // main css file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-import { format } from 'date-fns';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useState, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHotel } from "@fortawesome/free-solid-svg-icons";
+import { faBed } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import { faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
+import { DateRangePicker } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { format } from "date-fns";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Header = ({ type }) => {
   const [openDate, setOpenDate] = useState(false);
-  const [selectedRoom, setSelectedRoom] = useState('');
+  const [selectedRoom, setSelectedRoom] = useState("");
   const [date, setDate] = useState([
     {
       startDate: new Date(),
       endDate: new Date(),
-      key: 'selection',
+      key: "selection",
     },
   ]);
   const [openOptions, setOpenOptions] = useState(false);
@@ -35,7 +35,7 @@ const Header = ({ type }) => {
     setOptions((prev) => {
       return {
         ...prev,
-        [name]: operation === 'i' ? options[name] + 1 : options[name] - 1,
+        [name]: operation === "i" ? options[name] + 1 : options[name] - 1,
       };
     });
   };
@@ -45,8 +45,6 @@ const Header = ({ type }) => {
   const handleSearch = () => {
     const searchParams = {
       destination: destinationRef.current.value, // Get the value from the input field using the ref
-      startDate: date[0].startDate,
-      endDate: date[0].endDate,
       guestCount: options.guest,
       roomType: selectedRoom,
     };
@@ -57,33 +55,46 @@ const Header = ({ type }) => {
   };
 
   return (
-    <div className='header'>
-      <div className={type === 'list' ? 'headerContainer listMode' : 'headerContainer'}>
-        <div className='headerList'>
-          <div className='headerItem active'>
+    <div className="header">
+      <div
+        className={
+          type === "list" ? "headerContainer listMode" : "headerContainer"
+        }
+      >
+        <div className="headerList">
+          <div className="headerItem active">
             <FontAwesomeIcon icon={faHotel} />
             <span>Hotels</span>
           </div>
-          {type !== 'list' && (
+          {type !== "list" && (
             <>
-              <h1 className='headerTitle'>Make your hotel bookings with us. It is Fabulous.</h1>
-              <p className='description'>
-                It will be amazing if you trusted us the michayibooking with your safe relaxing hotel destinations.
-                Give us a chance to schedule your bookings and you will never regret as we offer you the best hospitality
-                places to chill with family and friends. Let's do this together.
+              <h1 className="headerTitle">
+                Make your hotel bookings with us. It is Fabulous.
+              </h1>
+              <p className="description">
+                It will be amazing if you trusted us the michayibooking with
+                your safe relaxing hotel destinations. Give us a chance to
+                schedule your bookings and you will never regret as we offer you
+                the best hospitality places to chill with family and friends.
+                Let's do this together.
               </p>
-              <NavLink to='/signup' className='headerBtn'>
+              <NavLink to="/signup" className="headerBtn">
                 Sign up
               </NavLink>
             </>
           )}
         </div>
-        <div className='headerSearch'>
-          <div className='headerSearchItem'>
-            <FontAwesomeIcon icon={faHotel} className='headerIcon' />
-            <input type='text' placeholder='destination' className='headerSearchInput' ref={destinationRef} />
+        <div className="headerSearch">
+          <div className="headerSearchItem">
+            <FontAwesomeIcon icon={faHotel} className="headerIcon" />
+            <input
+              type="text"
+              placeholder="destination"
+              className="headerSearchInput"
+              ref={destinationRef}
+            />
           </div>
-          <div className='headerSearchItem'>
+          {/* <div className='headerSearchItem'>
             <FontAwesomeIcon icon={faCalendarDays} className='headerIcon' />
             <span onClick={() => setOpenDate(!openDate)} className='headerSearchText'>
               {`${format(date[0].startDate, 'MM/dd/yyyy')} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}
@@ -96,28 +107,31 @@ const Header = ({ type }) => {
                 ranges={date}
               />
             )}
-          </div>
-          <div className='headerSearchItem'>
-            <FontAwesomeIcon icon={faPeopleGroup} className='headerIcon' />
-            <span onClick={() => setOpenOptions(!openOptions)} className='headerSearchText'>
+          </div> */}
+          <div className="headerSearchItem">
+            <FontAwesomeIcon icon={faPeopleGroup} className="headerIcon" />
+            <span
+              onClick={() => setOpenOptions(!openOptions)}
+              className="headerSearchText"
+            >
               {`${options.guest} guest`}
             </span>
             {openOptions && (
-              <div className='options'>
-                <div className='optionItem'>
-                  <span className='optionText'>Guest</span>
-                  <div className='optionCounter'>
+              <div className="options">
+                <div className="optionItem">
+                  <span className="optionText">Guest</span>
+                  <div className="optionCounter">
                     <button
                       disabled={options.guest <= 1}
-                      className='optionCounterButton'
-                      onClick={() => handleOption('guest', 'd')}
+                      className="optionCounterButton"
+                      onClick={() => handleOption("guest", "d")}
                     >
                       -
                     </button>
-                    <span className='optionCounterNumber'>{options.guest}</span>
+                    <span className="optionCounterNumber">{options.guest}</span>
                     <button
-                      className='optionCounterButton'
-                      onClick={() => handleOption('guest', 'i')}
+                      className="optionCounterButton"
+                      onClick={() => handleOption("guest", "i")}
                     >
                       +
                     </button>
@@ -126,23 +140,23 @@ const Header = ({ type }) => {
               </div>
             )}
           </div>
-          <div className='headerSearchItem'>
-            <FontAwesomeIcon icon={faBed} className='headerIcon' />
+          <div className="headerSearchItem">
+            <FontAwesomeIcon icon={faBed} className="headerIcon" />
             <select
               value={selectedRoom}
               onChange={(e) => handleRoomSelect(e.target.value)}
-              className='headerSearchInput'
+              className="headerSearchInput"
             >
-              <option value=''>Room Type</option>
-              <option value='Single'>Single</option>
-              <option value='Double'>Double</option>
-              <option value='Deluxe'>Family</option>
-              <option value='Deluxe'>Deluxe</option>
-              <option value='Suite'>Royal</option>
+              <option value="">Room Type</option>
+              <option value="Single">Single</option>
+              <option value="Double">Double</option>
+              <option value="Deluxe">Family</option>
+              <option value="Deluxe">Deluxe</option>
+              <option value="Suite">Royal</option>
             </select>
           </div>
-          <div className='headerSearchItem'>
-            <button className='headerBtn' onClick={handleSearch}>
+          <div className="headerSearchItem">
+            <button className="headerBtn" onClick={handleSearch}>
               Search
             </button>
           </div>

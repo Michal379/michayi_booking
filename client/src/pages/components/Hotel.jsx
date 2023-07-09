@@ -13,6 +13,7 @@ const Hotel = ({ setuser }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [searchedHotels, setSearchedHotels] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
   const navigate = useNavigate();
   const destinationRef = useRef(null);
 
@@ -74,19 +75,15 @@ const Hotel = ({ setuser }) => {
 
   const handleSearch = () => {
     const destination = destinationRef.current.value.toLowerCase();
+    setSearchInput(destination);
     const filteredHotels = hotels.filter((hotel) =>
       hotel.name.toLowerCase().includes(destination)
     );
-    setSearchedHotels(filteredHotels);
+    setSearchedHotels(filteredHotels); // Update the searchedHotels state with the filtered results
   };
 
   return (
-    <div className="hotel">
-      <div className="search">
-        <input type="text" placeholder="Destination" ref={destinationRef} />
-        <button onClick={handleSearch}>Search</button>
-      </div>
-
+    <div className="hotel">     
       {searchedHotels.map((hotel) => (
         <div key={hotel.id} className="hotelCard">
           <div className="imageContainer">
@@ -137,14 +134,8 @@ const Hotel = ({ setuser }) => {
             Unwind, relax, and create unforgettable memories at our remarkable hotel.
           </p>
         </div>
-        
-          {/* {showSignIn ? (
-            <Login onSignInSubmit={handleSignInSubmit} />
-          ) : (
-            <button onClick={handleSignIn}>Reserve or Book!</button>
-          )} */}
-        </div>
       </div>
+    </div>
   );
 };
 
