@@ -58,9 +58,13 @@ const Booked = ({ userDetails }) => {
     navigate('/hotels');
   };
 
+  const handleGoBack = () => {
+    navigate(-1); // Go back to the previous page
+  };
+
   return (
     <div className="booked-container">
-      <h1>Booked Successfully!</h1>
+      <h1>Hotel!</h1>
       {selectedHotel && (
         <div className="hotel-details">
           <img src={selectedHotel.image} alt={selectedHotel.name} />
@@ -72,9 +76,9 @@ const Booked = ({ userDetails }) => {
         </div>
       )}
       {rooms.length > 0 && (
-        <div className="rooms-container">
+        <div className="rooms-container" style={{ marginTop: '20px' }}>
           <h3>Available Rooms:</h3>
-          <div className="rooms-grid">
+          <div className="rooms-grid" style={{ marginBottom: '20px' }}>
             {rooms.map((room) => (
               <div key={room.id} className="room-item">
                 <input
@@ -92,7 +96,10 @@ const Booked = ({ userDetails }) => {
           </div>
         </div>
       )}
-      <button onClick={handleRemove}>Remove</button>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <button onClick={handleRemove} style={{ marginRight: '10px' }}>Remove</button>
+        <button onClick={handleGoBack}>Go Back</button>
+      </div>
     </div>
   );
 };

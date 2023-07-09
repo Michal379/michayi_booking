@@ -1,25 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckDouble } from '@fortawesome/fontawesome-svg-core';
 import Login from './Login';
 
-
 const Hotel = ({ setuser }) => {
   const [hotels, setHotels] = useState([]);
   const [selectedHotelId, setSelectedHotelId] = useState(null);
   const [rooms, setRooms] = useState([]);
-  const [showSignIn, setShowSignIn] = useState(false); // State to control the visibility of the sign-in form
+  const [showSignIn, setShowSignIn] = useState(false);
   const [user, setUser] = useState([]);
-  const [selectedRooms, setSelectedRooms] = useState([]); // State to store the selected rooms
+  const [selectedRooms, setSelectedRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
-
+  const [searchedHotels, setSearchedHotels] = useState([]);
   const navigate = useNavigate();
+  const destinationRef = useRef(null);
 
   useEffect(() => {
-    fetch("/hotels")
+    fetch('/hotels')
       .then((response) => response.json())
-      .then((data) => setHotels(data));
+      .then((data) => {
+        setHotels(data);
+        setSearchedHotels(data);
+      });
   }, []);
 
   useEffect(() => {
@@ -34,7 +37,7 @@ const Hotel = ({ setuser }) => {
     setSelectedHotelId(hotelId);
     const response = await fetch(`/hotels/${hotelId}/rooms`);
     const data = await response.json();
-    const roomsArray = Array.isArray(data) ? data : [data]; // Convert single object to array if needed
+    const roomsArray = Array.isArray(data) ? data : [data];
     setRooms(roomsArray);
     navigate(`/booked/${hotelId}?rooms=${encodeURIComponent(JSON.stringify(roomsArray))}`);
   };
@@ -52,11 +55,11 @@ const Hotel = ({ setuser }) => {
     const selectedRoom = rooms.find((room) => room.id === roomId);
     if (selectedRoom) {
       setSelectedRoom(selectedRoom);
-      setSelectedRooms([roomId]); // Update selected rooms
+      setSelectedRooms([roomId]);
       navigate(`/booking-details`, {
         state: {
           userDetails: user,
-          hotelName: hotels.find((hotel) => hotel.id === selectedHotelId).name, // Fetch the hotel name using selectedHotelId
+          hotelName: hotels.find((hotel) => hotel.id === selectedHotelId).name,
           roomType: selectedRoom.type,
           roomPrice: selectedRoom.price,
           hotel: hotels.find((hotel) => hotel.id === selectedHotelId),
@@ -64,16 +67,27 @@ const Hotel = ({ setuser }) => {
       });
     }
   };
-  
-  
-  
+
   const isRoomSelected = (roomId) => {
     return selectedRooms.includes(roomId);
   };
 
+  const handleSearch = () => {
+    const destination = destinationRef.current.value.toLowerCase();
+    const filteredHotels = hotels.filter((hotel) =>
+      hotel.name.toLowerCase().includes(destination)
+    );
+    setSearchedHotels(filteredHotels);
+  };
+
   return (
     <div className="hotel">
-      {hotels.map((hotel) => (
+      <div className="search">
+        <input type="text" placeholder="Destination" ref={destinationRef} />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+
+      {searchedHotels.map((hotel) => (
         <div key={hotel.id} className="hotelCard">
           <div className="imageContainer">
             <img src={hotel.image} alt={hotel.name} className="hotelImage" />
@@ -92,6 +106,7 @@ const Hotel = ({ setuser }) => {
           <h5>Rating: {hotel.rating}</h5>
         </div>
       ))}
+
       {rooms.length > 0 && (
         <div>
           <h3>Available Rooms:</h3>
@@ -109,6 +124,7 @@ const Hotel = ({ setuser }) => {
           ))}
         </div>
       )}
+
       <div className="hotelDetails">
         <div className="hotelDetailsTexts">
           <h1 className="hotelTitle">Stay in Milenic!</h1>
@@ -121,20 +137,14 @@ const Hotel = ({ setuser }) => {
             Unwind, relax, and create unforgettable memories at our remarkable hotel.
           </p>
         </div>
-        <div className="hotelDetailsPrice">
-          <h1>perfect for a 10-day stay</h1>
-          <span>At the heart of Milenic city. With an unwavering rating of 5!</span>
-          <h2>
-            <b>$1050</b> (10 nights)
-          </h2>
-          {showSignIn ? (
+        
+          {/* {showSignIn ? (
             <Login onSignInSubmit={handleSignInSubmit} />
           ) : (
             <button onClick={handleSignIn}>Reserve or Book!</button>
-          )}
+          )} */}
         </div>
       </div>
-    </div>
   );
 };
 
