@@ -373,6 +373,22 @@ form button[type="submit"] {
   color: lightgray;
 }
 
+.booking-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+}
+
+.booking-details-container h1,
+.booking-details-container h2,
+.booking-details-container h3,
+.booking-details-container p {
+  margin: 10px;
+}
+
 
 
 
