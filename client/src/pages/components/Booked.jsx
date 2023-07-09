@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../../App.css';
-import Rating from './Rating';
 
-const Booked = ({ userDetails }) => { // Add userDetails as a prop
+const Booked = ({ userDetails }) => {
   const { id } = useParams();
-  const [selectedHotel, setSelectedHotel] = useState(null);
-  const [rooms, setRooms] = useState([]);
-  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [selectedHotel, setSelectedHotel] = React.useState(null);
+  const [rooms, setRooms] = React.useState([]);
+  const [selectedRoom, setSelectedRoom] = React.useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetch(`/hotels/${id}`)
       .then((response) => response.json())
       .then((data) => setSelectedHotel(data));
   }, [id]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (selectedHotel) {
       fetch(`/hotels/${id}/rooms`)
         .then((response) => response.json())
@@ -27,7 +26,7 @@ const Booked = ({ userDetails }) => { // Add userDetails as a prop
     }
   }, [selectedHotel, id]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const storedSelectedRoom = localStorage.getItem('selectedRoom');
     if (storedSelectedRoom && rooms.find((room) => room.id === storedSelectedRoom)) {
       setSelectedRoom(storedSelectedRoom);
@@ -39,20 +38,18 @@ const Booked = ({ userDetails }) => { // Add userDetails as a prop
     if (selectedRoom) {
       setSelectedRoom(selectedRoom);
       localStorage.setItem('selectedRoom', roomId);
-  
-      // Navigate to booking details page
+
       navigate(`/booking-details`, {
         state: {
           userDetails: userDetails,
           roomType: selectedRoom.type,
           roomPrice: selectedRoom.price,
           hotel: selectedHotel,
-          hotelName: selectedHotel.name, // Add hotelName property to the state object
+          hotelName: selectedHotel.name,
         },
       });
     }
   };
-  
 
   const handleRemove = () => {
     setSelectedHotel(null);

@@ -1,3 +1,4 @@
+// App.js
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/components/Home';
@@ -12,12 +13,14 @@ import BookingDetailsPage from './pages/components/BookingDetailsPage';
 import Navbar from './pages/components/Navbar';
 import Footer from './pages/components/Footer';
 
-
 function App() {
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState('');
   const [userDetails, setUserDetails] = useState(null);
 
+  const handleSignup = (user) => {
+    setUserDetails(user);
+  };
 
   return (
     <BrowserRouter>
@@ -26,11 +29,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/hotels" element={<List />} />
         <Route path="/hotels/:id" element={<Hotel user={user} setUser={setUser} />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup onSignup={handleSignup} />} />
         <Route path="/login" element={<Login setUser={setUser} setMessage={setMessage} />} />
         <Route path="/logout" element={<Logout setMessage={setMessage} />} />
-        <Route path="/booked/:id" element={<Booked userDetails={userDetails}/>} />
-        <Route path="/booking-details" element={<BookingDetailsPage userDetails={userDetails}/>} />
+        <Route path="/booked/:id" element={<Booked userDetails={userDetails} />} />
+        <Route path="/booking-details"element={<BookingDetailsPage userDetails={userDetails} />}/>
         <Route path="/aboutus" element={<AboutUs />} />
       </Routes>
       <Footer />
