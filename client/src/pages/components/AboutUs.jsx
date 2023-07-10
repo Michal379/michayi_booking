@@ -1,20 +1,19 @@
 import React from 'react';
 
-
 const AboutUs = () => {
   return (
-    <div>
-      <h1 style={{textAlign: 'center'}}>About Us</h1>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h1 style={{ textAlign: 'center' }}>michayibooking.com</h1>
       <p>
-        Welcome to MichayiBooking, your go-to platform for finding the perfect accommodations for your travel needs. 
+        Welcome to MichayiBooking, your go-to platform for finding the perfect accommodations for your travel needs.
         We are passionate about connecting travelers with the best hotels around the world.
       </p>
       <p>
         <b>Our Mission:</b> To provide an exceptional booking experience and make your travel dreams come true.
       </p>
       <p>
-        At MichayiBooking, we believe that finding the ideal hotel should be easy and stress-free. 
-        With our extensive database of hotels and user-friendly interface, you can browse and book your desired accommodations 
+        At MichayiBooking, we believe that finding the ideal hotel should be easy and stress-free.
+        With our extensive database of hotels and user-friendly interface, you can browse and book your desired accommodations
         with confidence and convenience.
       </p>
       <p>
@@ -35,12 +34,12 @@ const AboutUs = () => {
         </li>
       </ul>
       <p>
-        Whether you're planning a relaxing beach vacation, a business trip, or a family getaway, MichayiBooking has you covered. 
+        Whether you're planning a relaxing beach vacation, a business trip, or a family getaway, MichayiBooking has you covered.
         Start your journey with us today and experience the joy of seamless hotel bookings.
       </p>
-      <p style={{textAlign: 'center', fontSize: '18px'}}>
+      <p style={{ textAlign: 'center', fontSize: '18px' }}>
         <b>
-        Thank you for choosing MichayiBooking! We look forward to being a part of your travel adventures!
+          Thank you for choosing MichayiBooking! We look forward to being a part of your travel adventures!
         </b>
       </p>
     </div>

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckDouble } from '@fortawesome/fontawesome-svg-core';
 import Login from './Login';
 
-const Hotel = ({ setuser }) => {
+const Hotel = () => {
   const [hotels, setHotels] = useState([]);
   const [selectedHotelId, setSelectedHotelId] = useState(null);
   const [rooms, setRooms] = useState([]);
@@ -12,8 +12,6 @@ const Hotel = ({ setuser }) => {
   const [user, setUser] = useState([]);
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const [searchedHotels, setSearchedHotels] = useState([]);
-  const [searchInput, setSearchInput] = useState('');
   const navigate = useNavigate();
   const destinationRef = useRef(null);
 
@@ -22,7 +20,6 @@ const Hotel = ({ setuser }) => {
       .then((response) => response.json())
       .then((data) => {
         setHotels(data);
-        setSearchedHotels(data);
       });
   }, []);
 
@@ -75,16 +72,16 @@ const Hotel = ({ setuser }) => {
 
   const handleSearch = () => {
     const destination = destinationRef.current.value.toLowerCase();
-    setSearchInput(destination);
     const filteredHotels = hotels.filter((hotel) =>
       hotel.name.toLowerCase().includes(destination)
     );
-    setSearchedHotels(filteredHotels); // Update the searchedHotels state with the filtered results
+    // Update the searchedHotels state with the filtered results
+    // (assuming you have the state in the parent component)
   };
 
   return (
-    <div className="hotel">     
-      {searchedHotels.map((hotel) => (
+    <div className="hotel">
+      {hotels.map((hotel) => (
         <div key={hotel.id} className="hotelCard">
           <div className="imageContainer">
             <img src={hotel.image} alt={hotel.name} className="hotelImage" />

@@ -64,10 +64,12 @@ end
     password: 'Password123!',
     phone_number: Faker::Number.number(digits: rand(7..10)),
     age: Faker::Number.between(from: 18, to: 90),
-    nationality: Faker::Nation.nationality
+    nationality: Faker::Nation.nationality,
+    admin: false
   )
   user.save!
 end
+
 
 room_types = %w[Single Double Family Deluxe Royal]
 

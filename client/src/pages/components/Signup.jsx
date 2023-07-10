@@ -8,6 +8,7 @@ const Signup = ({ onSignup }) => {
   const [nationality, setNationality] = useState('');
   const [age, setAge] = useState('');
   const [password, setPassword] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false); // New state for admin
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
@@ -44,12 +45,13 @@ const Signup = ({ onSignup }) => {
         password,
         nationality,
         age,
+        admin: isAdmin, // Include the admin attribute in the request
       }),
     })
       .then((r) => {
         if (r.ok) {
           r.json().then((user) => {
-            onSignup(user); // Call the onSignup function with the user data
+            onSignup(user);
             navigate('/login');
             resetFormFields();
           });
@@ -71,6 +73,7 @@ const Signup = ({ onSignup }) => {
     setNationality('');
     setAge('');
     setPassword('');
+    setIsAdmin(false); // Reset the admin state
   }
 
   return (
@@ -132,6 +135,14 @@ const Signup = ({ onSignup }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
+        />
+
+        <label htmlFor="admin">Admin</label>
+        <input
+          type="checkbox"
+          id="admin"
+          checked={isAdmin}
+          onChange={(e) => setIsAdmin(e.target.checked)}
         />
 
         <button type="submit">Sign up</button>
