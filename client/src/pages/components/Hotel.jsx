@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckDouble } from '@fortawesome/fontawesome-svg-core';
+import { useNavigate } from 'react-router-dom';
 import Login from './Login';
+import Search from './Search';
 
 const Hotel = () => {
   const [hotels, setHotels] = useState([]);
+  const [filteredHotels, setFilteredHotels] = useState([]);
   const [selectedHotelId, setSelectedHotelId] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [showSignIn, setShowSignIn] = useState(false);
@@ -20,6 +20,7 @@ const Hotel = () => {
       .then((response) => response.json())
       .then((data) => {
         setHotels(data);
+        setFilteredHotels(data); // Initialize filtered hotels with all hotels
       });
   }, []);
 
@@ -70,36 +71,45 @@ const Hotel = () => {
     return selectedRooms.includes(roomId);
   };
 
-  const handleSearch = () => {
-    const destination = destinationRef.current.value.toLowerCase();
-    const filteredHotels = hotels.filter((hotel) =>
-      hotel.name.toLowerCase().includes(destination)
-    );
-    // Update the searchedHotels state with the filtered results
-    // (assuming you have the state in the parent component)
+  const handleSearch = (searchParams) => {
+    const { name, location } = searchParams;
+  
+    const filteredHotels = hotels.filter((hotel) => {
+      const isNameMatched = hotel.name.toLowerCase().includes(name.toLowerCase());
+      const isLocationMatched = hotel.address.toLowerCase().includes(location.toLowerCase());
+      return isNameMatched && isLocationMatched;
+    });
+  
+    setFilteredHotels(filteredHotels);
   };
-
+  
   return (
+    
     <div className="hotel">
-      {hotels.map((hotel) => (
-        <div key={hotel.id} className="hotelCard">
-          <div className="imageContainer">
-            <img src={hotel.image} alt={hotel.name} className="hotelImage" />
-            {showSignIn ? (
-              <Login onSignInSubmit={handleSignInSubmit} />
-            ) : (
-              <button className="bookNow" onClick={() => handleBooking(hotel.id)}>
-                View rooms
-              </button>
-            )}
+            <Search onSearch={handleSearch} />
+      {filteredHotels.length > 0 ? (
+        filteredHotels.map((hotel) => (
+          <div key={hotel.id} className="hotelCard">
+            <div className="imageContainer">
+              <img src={hotel.image} alt={hotel.name} className="hotelImage" />
+              {showSignIn ? (
+                <Login onSignInSubmit={handleSignInSubmit} />
+              ) : (
+                <button className="bookNow" onClick={() => handleBooking(hotel.id)}>
+                  View rooms
+                </button>
+              )}
+            </div>
+            <h3>{hotel.name}</h3>
+            <h5>{hotel.address}</h5>
+            <h5>{hotel.description}</h5>
+            <h5>Amenities: {hotel.amenities}</h5>
+            <h5>Rating: {hotel.rating}</h5>
           </div>
-          <h3>{hotel.name}</h3>
-          <h5>{hotel.address}</h5>
-          <h5>{hotel.description}</h5>
-          <h5>Amenities: {hotel.amenities}</h5>
-          <h5>Rating: {hotel.rating}</h5>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>No hotels found.</p>
+      )}
 
       {rooms.length > 0 && (
         <div>
