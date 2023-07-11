@@ -15,15 +15,17 @@ class UsersController < ApplicationController
     end
   end
 
+
   def create
     user = User.new(user_params)
+    user.admin = params[:admin] == true
     if user.save
-      session[:user_id] = user.id
       render json: user, status: :created
     else
-      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: user.errors }, status: :unprocessable_entity
     end
   end
+  
 
   def destroy
     user = find_user
