@@ -392,7 +392,11 @@ form button[type="submit"] {
 }
 
 
-
+.admin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 
