@@ -12,8 +12,9 @@ import BookingDetailsPage from './pages/components/BookingDetailsPage';
 import Navbar from './pages/components/Navbar';
 import Footer from './pages/components/Footer';
 import Admin from './pages/components/Admin';
+
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // Define the setUser function
   const [message, setMessage] = useState('');
   const [userDetails, setUserDetails] = useState(null);
   const [searchedHotels, setSearchedHotels] = useState([]);
@@ -22,17 +23,25 @@ function App() {
     setUserDetails(user);
   };
 
+  const handleLogin = (user) => {
+    setUser(user);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar user={user} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/hotels" element={<List />} >
           <Route index element={<Hotel setSearchedHotels={setSearchedHotels} />} />
         </Route>
         <Route path="/signup" element={<Signup onSignup={handleSignup} />} />
-        <Route path="/login" element={<Login setUser={setUser} setMessage={setMessage} />} />
-        <Route path="/logout" element={<Logout setMessage={setMessage} />} />
+        <Route path="/login" element={<Login setUser={handleLogin} setMessage={setMessage} />} /> {/* Pass setUser as setUser={handleLogin} */}
+        <Route path="/logout" element={<Logout onLogout={handleLogout} setMessage={setMessage} />} />
         <Route path="/booked/:id" element={<Booked userDetails={userDetails} />} />
         <Route path="/booking-details" element={<BookingDetailsPage userDetails={userDetails} />} />
         <Route path="/aboutus" element={<AboutUs />} />
@@ -43,4 +52,5 @@ function App() {
     </BrowserRouter>
   );
 }
+
 export default App;

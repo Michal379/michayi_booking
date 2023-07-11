@@ -14,10 +14,12 @@ class SessionsController < ApplicationController
     end
   end
   
-    def destroy
-      session.delete :user_id
-      render json: {message: "Logout successful"}, status: :ok
-    end
+  def destroy
+    session.delete(:user_id)
+    render json: { message: "Logout successful" }, status: :ok
+  end
+
+  
 
     def current_user
         @current_user ||= User.find_by(id: session[:user_id])
