@@ -33,4 +33,4 @@ const Logout = () => {
   );
 };
 
-export default Logout;
+export default Logout; 

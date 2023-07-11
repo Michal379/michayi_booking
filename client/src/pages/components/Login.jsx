@@ -34,7 +34,7 @@ function Login({ setUser }) {
   }
 
   return (
-    <div>
+    <div className='login-container'>
       <form onSubmit={handleSubmit}>
         <h1>Login</h1>
         <label htmlFor="name">Username</label>

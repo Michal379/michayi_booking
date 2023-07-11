@@ -1,6 +1,6 @@
 .navbar{
   height: 100px;
-  background-color: rgb(20, 175, 227);
+  background-color: rgb(7, 92, 120);
   display: flex;
   justify-content: center;
 }
@@ -8,7 +8,7 @@
  .navbarContainer{
   width: 100%;
   max-width: 1024px;
-  color: rgb(189, 27, 138);
+  color:white;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,7 +30,7 @@
   padding: 6px 11px;
   margin-left: 20px;
   cursor: pointer;
-  color: rgb(218, 35, 22);
+  color: white;
   text-decoration: none;
 }
 
@@ -213,8 +213,8 @@
   position: absolute;
   bottom: 100px;
   left: 20px;
-  color: white;
-  font-weight: 1000;
+  color:white;
+  font-weight: 2000;
 }
 
 .hotel {
@@ -325,8 +325,14 @@ form button[type="submit"] {
   width: 40%;
 }
 
+.login-container{
+  min-height: 605px;
+  margin-top: 10px;
+}
+
 .signup-container {
   display: flex; 
+  min-height: 615px;
 }
 
 .signup-image {
@@ -409,7 +415,7 @@ form button[type="submit"] {
   width: 100%;
   /* width: 1024px; */
   font-size: 12px;
-  background-color: rgb(244, 154, 169);
+  background-color: rgb(7, 92, 120);
 }
 
 .fLists{
@@ -422,11 +428,12 @@ form button[type="submit"] {
 .fList{
   list-style-type: none;
   padding: 0;
+  color: white;
 }
 
 .fListItem{
   margin-bottom: 10px;
-  color:rgb(17, 1, 17) ;
+  color:white ;
   cursor: pointer;
 }
 
@@ -435,6 +442,7 @@ form button[type="submit"] {
   font-size: 15px;
   text-align: center;
   font-weight: bold;
+  color: white;
 }
   
   
