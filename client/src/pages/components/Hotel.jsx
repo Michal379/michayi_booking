@@ -87,6 +87,7 @@ const Hotel = () => {
     
     <div className="hotel">
             <Search onSearch={handleSearch} />
+
       {filteredHotels.length > 0 ? (
         filteredHotels.map((hotel) => (
           <div key={hotel.id} className="hotelCard">

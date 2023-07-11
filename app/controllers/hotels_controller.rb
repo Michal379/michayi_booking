@@ -32,13 +32,14 @@ class HotelsController < ApplicationController
   
     def destroy
       hotel = find_hotel
+      hotel.rooms.destroy_all # Destroy associated rooms before destroying the hotel
       if hotel.destroy
         head :no_content
       else
         render json: { error: "Failed to delete hotel" }, status: :unprocessable_entity
       end
     end
-  
+    
     private
   
     def authenticate_admin
