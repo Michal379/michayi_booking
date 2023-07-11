@@ -24,8 +24,7 @@ class UsersController < ApplicationController
     else
       render json: { errors: user.errors }, status: :unprocessable_entity
     end
-  end
-  
+  end  
 
   def destroy
     user = find_user
@@ -33,7 +32,7 @@ class UsersController < ApplicationController
     head :no_content
   end
 
-  # New method for admin to manage hotels
+  # admin to manage hotels
   def manageHotels
     # Check if the current user is an admin
     unless current_user&.admin?
@@ -41,7 +40,7 @@ class UsersController < ApplicationController
       return
     end
 
-    # Perform the hotel management actions (add/create, update, delete) based on params or request payload
+    # Perform the hotel management actions
     case params[:action_type]
     when "create"
       hotel = Hotel.new(hotel_params)

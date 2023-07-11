@@ -93,20 +93,6 @@ const Admin = () => {
       <button className="admin-option" onClick={() => setShowForm(true)}>
         <FontAwesomeIcon icon={faPlus} /> Add Hotel
       </button>
-      <div className="hotel-list">
-        {hotels.map((hotel) => (
-          <div key={hotel.id} className="hotel-item">
-            <h3>{hotel.name}</h3>
-            <p>{hotel.address}</p>
-            <button onClick={() => handleEditHotel(hotel.id)} className="admin-option">
-              <FontAwesomeIcon icon={faEdit} /> Edit
-            </button>
-            <button onClick={() => handleDeleteHotel(hotel.id)} className="admin-option">
-              <FontAwesomeIcon icon={faTrash} /> Delete
-            </button>
-          </div>
-        ))}
-      </div>
       {showForm && (
         <div className="add-hotel-form">
           <h2>Add Hotel</h2>
@@ -140,10 +126,54 @@ const Admin = () => {
               required
             ></textarea>
 
+            <label htmlFor="amenities">Amenities</label>
+            <input
+              type="text"
+              id="amenities"
+              name="amenities"
+              value={hotelData.amenities}
+              onChange={handleInputChange}
+              required
+            />
+
+            <label htmlFor="rating">Rating</label>
+            <input
+              type="text"
+              id="rating"
+              name="rating"
+              value={hotelData.rating}
+              onChange={handleInputChange}
+              required
+            />
+
+            <label htmlFor="imageUrl">Image URL</label>
+            <input
+              type="text"
+              id="imageUrl"
+              name="imageUrl"
+              value={hotelData.imageUrl}
+              onChange={handleInputChange}
+              required
+            />
+
             <button type="submit">Add Hotel</button>
           </form>
         </div>
       )}
+      <div className="hotel-list">
+        {hotels.map((hotel) => (
+          <div key={hotel.id} className="hotel-item">
+            <h3>{hotel.name}</h3>
+            <p>{hotel.address}</p>
+            <button onClick={() => handleEditHotel(hotel.id)} className="admin-option">
+              <FontAwesomeIcon icon={faEdit} /> Edit
+            </button>
+            <button onClick={() => handleDeleteHotel(hotel.id)} className="admin-option">
+              <FontAwesomeIcon icon={faTrash} /> Delete
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
